@@ -37,7 +37,7 @@ router.post('/upload', upload.single('pdf'), async (req, res) => {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
-    const { name } = req.body; // Custom name from user
+    const { name } = req.body;
     
     const pdf = new Pdf({
       name: name || req.file.originalname,
@@ -60,17 +60,23 @@ router.post('/upload', upload.single('pdf'), async (req, res) => {
     });
   } catch (error) {
     console.error('Upload error:', error);
-    res.status(500).json({ error: 'Failed to upload PDF' });
+    res.status(500).json({ error: 'Failed to upload PDF', details: error.message });
   }
 });
 
-// Get all PDFs endpoint
+// Get all PDFs endpoint - FIXED with better error handling
 router.get('/pdfs', async (req, res) => {
   try {
+    console.log('Fetching PDFs from database...');
     const pdfs = await Pdf.find().sort({ uploadDate: -1 });
+    console.log(`Found ${pdfs.length} PDFs`);
     res.json(pdfs);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch PDFs' });
+    console.error('Error fetching PDFs:', error);
+    res.status(500).json({ 
+      error: 'Failed to fetch PDFs',
+      details: error.message 
+    });
   }
 });
 
@@ -93,7 +99,8 @@ router.put('/pdfs/:id', async (req, res) => {
 
     res.json({ message: 'PDF updated successfully', pdf });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update PDF' });
+    console.error('Update error:', error);
+    res.status(500).json({ error: 'Failed to update PDF', details: error.message });
   }
 });
 
