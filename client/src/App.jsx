@@ -1,4 +1,8 @@
 import React from 'react'
+import Header from './components/Header'
+import Hero from './components/Hero'
+import Section from './components/Section'
+import Footer from './components/Footer'
 import PdfUpload from './components/PdfUpload'
 import PdfList from './components/PdfList'
 import './App.css'
@@ -6,34 +10,20 @@ import './App.css'
 function App() {
   return (
     <div className="App">
-      <header className="app-header">
-        <div className="header-content">
-          <a href="https://vite.dev" target="_blank" rel="noopener noreferrer">
-            <img src="/vite.svg" className="logo" alt="Vite logo" />
-          </a>
-          <a href="https://react.dev" target="_blank" rel="noopener noreferrer">
-            <img src="/react.svg" className="logo react" alt="React logo" />
-          </a>
-          <h1>PDF Management System</h1>
+      <Header />
+      <Hero />
+      
+      <Section id="upload" title="PDF Document Management" bg="white">
+        <div className="pdf-management-section">
+          <PdfUpload />
         </div>
-        <p className="app-subtitle">Upload, manage, and organize your PDF documents</p>
-      </header>
-
-      <main className="app-main">
-        <div className="app-container">
-          <section className="upload-section">
-            <PdfUpload />
-          </section>
-          
-          <section className="list-section">
-            <PdfList />
-          </section>
-        </div>
-      </main>
-
-      <footer className="app-footer">
-        <p>Built with Vite + React</p>
-      </footer>
+      </Section>
+      
+      <Section id="documents" title="Uploaded Documents" bg="blue-50">
+        <PdfList />
+      </Section>
+      
+      <Footer />
     </div>
   )
 }

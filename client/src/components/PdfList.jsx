@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../css/PdfUpload.css';
+import '../../css/PdfList.css';
 
 const PdfList = () => {
   const [pdfs, setPdfs] = useState([]);
@@ -16,29 +16,22 @@ const PdfList = () => {
     try {
       setLoading(true);
       setError('');
-      console.log('Fetching PDFs from API...');
-      
       const response = await fetch('http://localhost:5000/api/pdfs');
       const data = await response.json();
       
-      console.log('API response:', data);
-      
       if (!response.ok) {
-        // If response is not OK, data might be an error object
         throw new Error(data.error || `Server returned ${response.status}`);
       }
       
-      // Ensure data is an array
       if (!Array.isArray(data)) {
-        console.error('Expected array but got:', typeof data, data);
         throw new Error('Invalid data format received from server');
       }
       
       setPdfs(data);
     } catch (error) {
       console.error('Error fetching PDFs:', error);
-      setError(error.message || 'Failed to load PDFs. Make sure the server is running on port 5000.');
-      setPdfs([]); // Ensure pdfs is always an array
+      setError(error.message || 'Failed to load documents. Make sure the server is running on port 5000.');
+      setPdfs([]);
     } finally {
       setLoading(false);
     }
@@ -64,11 +57,11 @@ const PdfList = () => {
         fetchPdfs();
       } else {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to update PDF');
+        throw new Error(errorData.error || 'Failed to update document');
       }
     } catch (error) {
       console.error('Error updating PDF:', error);
-      alert('Failed to update PDF: ' + error.message);
+      alert('Failed to update document: ' + error.message);
     }
   };
 
@@ -98,8 +91,7 @@ const PdfList = () => {
   if (loading) {
     return (
       <div className="pdf-list-container">
-        <h2>📚 Your PDF Documents</h2>
-        <div className="loading">Loading documents...</div>
+        <div className="loading">Loading research documents...</div>
       </div>
     );
   }
@@ -107,34 +99,27 @@ const PdfList = () => {
   if (error) {
     return (
       <div className="pdf-list-container">
-        <h2>📚 Your PDF Documents</h2>
         <div className="error-state">
           <div className="error-icon">⚠️</div>
           <h3>Connection Error</h3>
           <p>{error}</p>
-          <p style={{ fontSize: '0.9rem', marginTop: '1rem' }}>
-            Make sure your server is running on port 5000 and MongoDB is connected.
-          </p>
           <button onClick={fetchPdfs} className="retry-btn">
-            🔄 Retry
+            Try Again
           </button>
         </div>
       </div>
     );
   }
 
-  // Safe rendering - ensure pdfs is always treated as array
   const pdfsToRender = Array.isArray(pdfs) ? pdfs : [];
 
   return (
     <div className="pdf-list-container">
-      <h2>📚 Your PDF Documents</h2>
-      
       {pdfsToRender.length === 0 ? (
         <div className="empty-state">
           <div className="empty-icon">📄</div>
-          <h3>No PDFs uploaded yet</h3>
-          <p>Upload your first PDF document to get started!</p>
+          <h3>No research documents uploaded yet</h3>
+          <p>Upload your first research document to get started!</p>
         </div>
       ) : (
         <div className="pdfs-grid">
@@ -147,14 +132,14 @@ const PdfList = () => {
                     value={editName}
                     onChange={(e) => setEditName(e.target.value)}
                     className="edit-input"
-                    placeholder="Enter new name..."
+                    placeholder="Enter new document title..."
                   />
                   <div className="edit-actions">
                     <button onClick={() => handleUpdate(pdf._id)} className="save-btn">
-                      💾 Save
+                      Save
                     </button>
                     <button onClick={handleCancel} className="cancel-btn">
-                      ❌ Cancel
+                      Cancel
                     </button>
                   </div>
                 </div>
@@ -167,7 +152,7 @@ const PdfList = () => {
                       className="edit-btn"
                       title="Rename document"
                     >
-                      ✏️
+                      Edit Title
                     </button>
                   </div>
                   
@@ -185,7 +170,7 @@ const PdfList = () => {
                       rel="noopener noreferrer"
                       className="view-btn"
                     >
-                      👁️ View PDF
+                      View Document
                     </a>
                   </div>
                 </>

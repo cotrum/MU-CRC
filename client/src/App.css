@@ -40,3 +40,24 @@
 .read-the-docs {
   color: #888;
 }
+
+/* PDF Management Section Styles */
+.pdf-management-section {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Background color utilities */
+.bg-white {
+  background: #fff;
+}
+
+.bg-blue-50 {
+  background: linear-gradient(135deg, #e0f0ff, #f9fbff);
+}
+
+/* Section spacing for PDF components */
+.section > * {
+  max-width: 1200px;
+  margin: 0 auto;
+}
