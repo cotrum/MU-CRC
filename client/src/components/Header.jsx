@@ -14,6 +14,7 @@ export default function Header() {
             <a href="#research">Research</a>
             <a href="#events">Events</a>
             <a href="#sponsorship">Sponsorship</a>
+            <a href="#upload">Upload PDF</a>
             <a href="#contact">Contact</a>
         </nav>
         </header>
