@@ -40,3 +40,39 @@
 .read-the-docs {
   color: #888;
 }
+
+/* PDF Upload Styles */
+.pdf-upload-page, .writeups-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.upload-section, .documents-section {
+  margin-bottom: 3rem;
+}
+
+.upload-section h1, .writeups-page h1 {
+  color: #004080;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.upload-section p, .writeups-page p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.documents-section h2 {
+  color: #004080;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.pdf-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
