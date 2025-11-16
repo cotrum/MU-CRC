@@ -31,7 +31,7 @@ app.get('/api/test', (req, res) => {
 })
 
 // Import and use upload routes
-import uploadRoutes from './routes/upload.js'
+import uploadRoutes from './routes/index.js'
 app.use('/api', uploadRoutes)
 
 // MongoDB connection with better timeout handling

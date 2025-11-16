@@ -5,17 +5,19 @@ import PdfList from '../components/PdfList';
 const Writeups = () => {
   return (
     <div className="writeups-page">
-      <h1>Research Documents & Writeups</h1>
-      <p>Access and upload cybersecurity research documents and writeups</p>
+      <div className="page-header">
+        <h1>Research Writeups & Documents</h1>
+        <p>Access and contribute to our collection of cybersecurity research and writeups</p>
+      </div>
       
-      <div className="pdf-sections">
+      <div className="page-content">
         <section className="upload-section">
-          <h2>Upload New Document</h2>
+          <h2>Contribute a Writeup</h2>
           <PdfUpload />
         </section>
         
         <section className="documents-section">
-          <h2>Available Documents</h2>
+          <h2>Available Writeups</h2>
           <PdfList />
         </section>
       </div>
