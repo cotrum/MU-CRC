@@ -1,26 +1,33 @@
 import React from 'react';
 import PdfUpload from '../components/PdfUpload';
 import PdfList from '../components/PdfList';
+import Footer from "../components/Footer.jsx";
+import Header from "../components/Header.jsx";
 
 const Writeups = () => {
   return (
     <div className="writeups-page">
+      <Header />
+
       <div className="page-header">
-        <h1>Research Writeups & Documents</h1>
-        <p>Access and contribute to our collection of cybersecurity research and writeups</p>
+        <h1>Past CTF Competition Writeups</h1>
       </div>
-      
+
       <div className="page-content">
         <section className="upload-section">
-          <h2>Contribute a Writeup</h2>
+          <h2>Upload a Writeup</h2>
           <PdfUpload />
         </section>
-        
-        <section className="documents-section">
-          <h2>Available Writeups</h2>
-          <PdfList />
-        </section>
       </div>
+
+      <section className="documents-section">
+        <h2>Past CTF Writeups</h2>
+        <div className="pdf-list">
+          <PdfList />
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 };

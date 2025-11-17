@@ -1,12 +1,16 @@
 import React from 'react';
+import Footer from "../components/Footer.jsx"
+import Header from "../components/Header.jsx"
 
 const Events = () => {
   return (
-    <div style={{ padding: '2rem' }}>
+    <div>
+      <Header />
       <h1>Events</h1>
       <p>Upcoming cybersecurity events and workshops.</p>
+      <Footer />
     </div>
   );
 };
 
-export default Events; // ← This line must be present!
+export default Events;

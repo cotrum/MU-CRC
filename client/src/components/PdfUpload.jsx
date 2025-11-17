@@ -76,8 +76,7 @@ const PdfUpload = () => {
   return (
     <div className="pdf-upload-container">
       <div className="upload-card">
-        <h3>Upload Research Document</h3>
-        <p className="upload-subtitle">Share your cybersecurity research papers and documents</p>
+        <p className="upload-subtitle">Please specify the CTF and challenge name below.</p>
         
         <div className="upload-form">
           <div className="form-group">
@@ -130,7 +129,7 @@ const PdfUpload = () => {
                 Uploading...
               </>
             ) : (
-              'Upload Research Document'
+              'UPLOAD'
             )}
           </button>
 

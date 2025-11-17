@@ -7,7 +7,6 @@ import Events from './pages/Events.jsx';
 import Sponsorship from './pages/Sponsorship.jsx';
 import Contact from './pages/Contact.jsx';
 import Writeups from './pages/Writeups.jsx';
-import PDFUpload from './pages/PDFUpload.jsx';
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
           <Route path="/sponsorship" element={<Sponsorship />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/writeups" element={<Writeups />} />
-          <Route path="/pdfupload" element={<PDFUpload />} />
         </Routes>
       </div>
     </Router>

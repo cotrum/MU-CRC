@@ -1,22 +1,11 @@
 import React from 'react';
+import Footer from "../components/Footer.jsx"
+import Header from "../components/Header.jsx"
 
 const Home = () => {
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif' }}>
-      <header style={{ 
-        background: '#004080', 
-        color: 'white', 
-        padding: '1rem 2rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
-        <h2>Monmouth University Cybersecurity Research Center</h2>
-        <nav>
-          <a href="/writeups" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Writeups</a>
-          <a href="/pdfupload" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Upload</a>
-        </nav>
-      </header>
+    <div>
+      <Header />
 
       <section style={{ 
         textAlign: 'center', 
@@ -30,7 +19,7 @@ const Home = () => {
           Join us in advancing cybersecurity education, innovation, and collaboration.
         </p>
         <button 
-          onClick={() => window.location.href = '/writeups'}
+          onClick={() => window.location.href = '/about'}
           style={{
             background: '#004080',
             color: '#fff',
@@ -41,19 +30,11 @@ const Home = () => {
             fontSize: '1rem'
           }}
         >
-          View Research Documents
+          Learn More
         </button>
       </section>
-
-      <footer style={{ 
-        background: '#fff', 
-        borderTop: '1px solid #ddd', 
-        padding: '2rem', 
-        textAlign: 'center', 
-        color: '#666' 
-      }}>
-        <p>© 2025 Monmouth University Cybersecurity Research Center</p>
-      </footer>
+      <Footer />
+      
     </div>
   );
 };
