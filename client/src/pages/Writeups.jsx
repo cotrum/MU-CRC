@@ -3,33 +3,32 @@ import PdfUpload from '../components/PdfUpload';
 import PdfList from '../components/PdfList';
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
+import "../styles/global.css";
+import "../styles/layout.css";
 
 const Writeups = () => {
   return (
-    <div className="writeups-page">
-      <Header />
+    <>
+    <Header />
+    <div className="page-container">
 
-      <div className="page-header">
-        <h1>Past CTF Competition Writeups</h1>
+      <h1 className="page-title">Past CTF Competition Writeups</h1>
+
+      <h2 className="section-title">Upload a Writeup</h2>
+      <div className="section-box">
+        <PdfUpload />
       </div>
 
-      <div className="page-content">
-        <section className="upload-section">
-          <h2>Upload a Writeup</h2>
-          <PdfUpload />
-        </section>
+      <h2 className="section-title">Past CTF Writeups</h2>
+      <div className="section-box">
+        <PdfList />
       </div>
 
-      <section className="documents-section">
-        <h2>Past CTF Writeups</h2>
-        <div className="pdf-list">
-          <PdfList />
-        </div>
-      </section>
-
-      <Footer />
     </div>
+    <Footer />
+    </>
   );
 };
 
 export default Writeups;
+
