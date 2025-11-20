@@ -1,148 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import './PdfUpload.css';
 
-const PdfUpload = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [pdfName, setPdfName] = useState('');
-  const [uploading, setUploading] = useState(false);
-  const [message, setMessage] = useState('');
+export default function PdfUpload() {
+  const [pdfFile, setPdfFile] = useState(null);
+  const [ctfName, setCtfName] = useState("");
+  const [challengeName, setChallengeName] = useState("");
+  const [existingCtfs, setExistingCtfs] = useState([]);
 
   useEffect(() => {
-    const savedFile = sessionStorage.getItem('selectedFile');
-    const savedName = sessionStorage.getItem('pdfName');
-    if (savedFile) setSelectedFile(JSON.parse(savedFile));
-    if (savedName) setPdfName(savedName);
+    fetch("http://localhost:5000/api/ctf-names")
+      .then(res => res.json())
+      .then(data => setExistingCtfs(data));
   }, []);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type === 'application/pdf') {
-      setSelectedFile(file);
-      setPdfName(file.name.replace('.pdf', ''));
-      setMessage('');
-      sessionStorage.setItem('selectedFile', JSON.stringify({
-        name: file.name,
-        size: file.size,
-        type: file.type
-      }));
-      sessionStorage.setItem('pdfName', file.name.replace('.pdf', ''));
-    } else {
-      setSelectedFile(null);
-      setMessage('Please select a valid PDF file');
-      sessionStorage.removeItem('selectedFile');
-    }
-  };
-
   const handleUpload = async () => {
-    if (!selectedFile) {
-      setMessage('Please select a PDF file first');
-      return;
-    }
-
-    setUploading(true);
-    setMessage('');
+    if (!pdfFile || !ctfName || !challengeName) return alert("Missing fields");
 
     const formData = new FormData();
-    formData.append('pdf', selectedFile);
-    formData.append('name', pdfName || selectedFile.name.replace('.pdf', ''));
+    formData.append("pdf", pdfFile);
+    formData.append("ctfName", ctfName);
+    formData.append("challengeName", challengeName);
 
-    try {
-      const response = await fetch('http://localhost:5000/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
+    const res = await fetch("http://localhost:5000/api/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage(`✅ ${data.message}`);
-        setSelectedFile(null);
-        setPdfName('');
-        document.getElementById('pdf-file').value = '';
-        sessionStorage.removeItem('selectedFile');
-        sessionStorage.removeItem('pdfName');
-        setTimeout(() => window.location.reload(), 1500);
-      } else {
-        setMessage(`❌ ${data.error}`);
-      }
-    } catch (error) {
-      setMessage('❌ Upload failed. Please make sure the server is running.');
-      console.error('Upload error:', error);
-    } finally {
-      setUploading(false);
+    const data = await res.json();
+    if (res.ok) {
+      alert("Uploaded!");
+      window.location.reload();
+    } else {
+      alert(data.error);
     }
   };
 
   return (
-    <div className="pdf-upload-container">
-      <div className="upload-card">
-        <h3>Upload Research Document</h3>
-        <p className="upload-subtitle">Share your cybersecurity research papers and documents</p>
-        
-        <div className="upload-form">
-          <div className="form-group">
-            <label htmlFor="pdf-file" className="file-label">
-              Choose PDF File
-            </label>
-            <input
-              type="file"
-              id="pdf-file"
-              accept=".pdf"
-              onChange={handleFileChange}
-              className="file-input"
-            />
-          </div>
+    <div className="upload-card">
+      <h2>Upload CTF Writeup</h2>
 
-          <div className="form-group">
-            <label htmlFor="pdf-name" className="text-label">
-              Document Title
-            </label>
-            <input
-              type="text"
-              id="pdf-name"
-              value={pdfName}
-              onChange={(e) => {
-                setPdfName(e.target.value);
-                sessionStorage.setItem('pdfName', e.target.value);
-              }}
-              placeholder="Enter a title for this research document"
-              className="text-input"
-            />
-          </div>
+      <label>CTF Name</label>
+      <input 
+        type="text"
+        list="ctf-list"
+        value={ctfName}
+        onChange={e => setCtfName(e.target.value)}
+        placeholder="Start typing..."
+      />
+      <datalist id="ctf-list">
+        {existingCtfs.map(ctf => (
+          <option key={ctf} value={ctf} />
+        ))}
+      </datalist>
 
-          {selectedFile && (
-            <div className="file-info">
-              <h4>File Details:</h4>
-              <p><strong>Filename:</strong> {selectedFile.name}</p>
-              <p><strong>Size:</strong> {(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
-              <p><strong>Type:</strong> PDF Document</p>
-            </div>
-          )}
+      <label>Challenge Name</label>
+      <input 
+        type="text"
+        value={challengeName}
+        onChange={e => setChallengeName(e.target.value)}
+      />
 
-          <button 
-            onClick={handleUpload} 
-            disabled={!selectedFile || uploading}
-            className={`upload-button ${uploading ? 'uploading' : ''}`}
-          >
-            {uploading ? (
-              <>
-                <span className="spinner"></span>
-                Uploading...
-              </>
-            ) : (
-              'Upload Research Document'
-            )}
-          </button>
+      <label>PDF file</label>
+      <input 
+        type="file"
+        accept="application/pdf"
+        onChange={e => setPdfFile(e.target.files[0])}
+      />
 
-          {message && (
-            <div className={`message ${message.includes('✅') ? 'success' : 'error'}`}>
-              {message}
-            </div>
-          )}
-        </div>
-      </div>
+      <button onClick={handleUpload}>UPLOAD</button>
     </div>
   );
-};
-
-export default PdfUpload;
+}

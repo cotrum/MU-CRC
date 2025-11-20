@@ -1,35 +1,12 @@
 import mongoose from 'mongoose';
 
-const pdfSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  filename: {
-    type: String,
-    required: true
-  },
-  originalName: {
-    type: String,
-    required: true
-  },
-  uploadDate: {
-    type: Date,
-    default: Date.now
-  },
-  lastUpdated: {
-    type: Date,
-    default: Date.now
-  },
-  size: {
-    type: Number,
-    required: true
-  },
-  path: {
-    type: String,
-    required: true
-  }
+const PdfSchema = new mongoose.Schema({
+  ctfName: { type: String, required: true },          // e.g., "HTB Cyber Apocalypse"
+  challengeName: { type: String, required: true },    // e.g., "Ancient RSA"
+  filename: String,
+  originalName: String,
+  size: Number,
+  uploadDate: { type: Date, default: Date.now },
 });
 
-export default mongoose.model('Pdf', pdfSchema);
+export default mongoose.model('Pdf', PdfSchema);

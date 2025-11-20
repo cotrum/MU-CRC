@@ -9,6 +9,6 @@ router.get('/', (req, res) => {
 });
 
 // Mount upload routes under /upload path to avoid conflicts
-router.use('/upload', uploadRoutes);
+router.use('/', uploadRoutes);
 
 export default router;
