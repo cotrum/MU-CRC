@@ -1,37 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './PdfUpload.css';
 
 export default function PdfUpload() {
   const [pdfFile, setPdfFile] = useState(null);
   const [ctfName, setCtfName] = useState("");
   const [challengeName, setChallengeName] = useState("");
-  const [existingCtfs, setExistingCtfs] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/api/ctf-names")
-      .then(res => res.json())
-      .then(data => setExistingCtfs(data));
-  }, []);
+  const [uploading, setUploading] = useState(false);
 
   const handleUpload = async () => {
-    if (!pdfFile || !ctfName || !challengeName) return alert("Missing fields");
+    if (!pdfFile || !ctfName || !challengeName) {
+      alert("Please fill in all fields and select a PDF file");
+      return;
+    }
+
+    setUploading(true);
 
     const formData = new FormData();
     formData.append("pdf", pdfFile);
     formData.append("ctfName", ctfName);
     formData.append("challengeName", challengeName);
 
-    const res = await fetch("http://localhost:5000/api/upload", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const res = await fetch("http://localhost:5000/api/upload", {
+        method: "POST",
+        body: formData,
+      });
 
-    const data = await res.json();
-    if (res.ok) {
-      alert("Uploaded!");
-      window.location.reload();
-    } else {
-      alert(data.error);
+      if (res.ok) {
+        alert("Uploaded successfully!");
+        // Reset form
+        setPdfFile(null);
+        setCtfName("");
+        setChallengeName("");
+        document.querySelector('input[type="file"]').value = "";
+        window.location.reload();
+      } else {
+        const data = await res.json();
+        alert(data.error || "Upload failed");
+      }
+    } catch (err) {
+      console.error('Upload error:', err);
+      alert('Upload failed. Please check if the server is running.');
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -39,35 +50,49 @@ export default function PdfUpload() {
     <div className="upload-card">
       <h2>Upload CTF Writeup</h2>
 
-      <label>CTF Name</label>
-      <input 
-        type="text"
-        list="ctf-list"
-        value={ctfName}
-        onChange={e => setCtfName(e.target.value)}
-        placeholder="Start typing..."
-      />
-      <datalist id="ctf-list">
-        {existingCtfs.map(ctf => (
-          <option key={ctf} value={ctf} />
-        ))}
-      </datalist>
+      <div className="form-group">
+        <label>CTF Name</label>
+        <input 
+          type="text"
+          value={ctfName}
+          onChange={e => setCtfName(e.target.value)}
+          placeholder="Enter CTF name"
+        />
+      </div>
 
-      <label>Challenge Name</label>
-      <input 
-        type="text"
-        value={challengeName}
-        onChange={e => setChallengeName(e.target.value)}
-      />
+      <div className="form-group">
+        <label>Challenge Name</label>
+        <input 
+          type="text"
+          value={challengeName}
+          onChange={e => setChallengeName(e.target.value)}
+          placeholder="Enter challenge name"
+        />
+      </div>
 
-      <label>PDF file</label>
-      <input 
-        type="file"
-        accept="application/pdf"
-        onChange={e => setPdfFile(e.target.files[0])}
-      />
+      <div className="form-group">
+        <label>PDF file</label>
+        <input 
+          type="file"
+          accept="application/pdf"
+          onChange={e => setPdfFile(e.target.files[0])}
+        />
+      </div>
 
-      <button onClick={handleUpload}>UPLOAD</button>
+      <button 
+        onClick={handleUpload} 
+        disabled={uploading}
+        className="upload-button"
+      >
+        {uploading ? "Uploading..." : "UPLOAD"}
+      </button>
+
+      {pdfFile && (
+        <div className="file-info">
+          <p><strong>Selected file:</strong> {pdfFile.name}</p>
+          <p><strong>Size:</strong> {(pdfFile.size / 1024 / 1024).toFixed(2)} MB</p>
+        </div>
+      )}
     </div>
   );
 }
