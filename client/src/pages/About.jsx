@@ -1,14 +1,17 @@
 import React from 'react';
-import Footer from "../components/Footer.jsx"
-import Header from "../components/Header.jsx"
+import Footer from "../components/Footer.jsx";
+import Header from "../components/Header.jsx";
+import "../styles/global.css";
+import "../styles/layout.css";
+import "../styles/About.css";
 
 const About = () => {
   return (
-    <div>
+    <>
       <Header />
       
       <div className="page-container">
-        <h1 className="page-title">About The Center</h1>
+        <h1 className="page-title">About Our Center</h1>
 
         <section className="about-intro">
           <p className="lead-text">
@@ -17,7 +20,7 @@ const About = () => {
         </section>
 
         <section className="about-section">
-          <h2>Our Mission</h2>
+          <h2 className="section-title">Our Mission</h2>
           <div className="section-box">
             <p>
               Our mission is to prepare the next generation of cybersecurity professionals while conducting innovative research that addresses real-world security challenges. We strive to create a collaborative environment where students, faculty, and industry partners work together to protect digital infrastructure and advance cybersecurity knowledge.
@@ -26,7 +29,7 @@ const About = () => {
         </section>
 
         <section className="about-section">
-          <h2>What We Do</h2>
+          <h2 className="section-title">What We Do</h2>
           <div className="grid grid-2">
             <div className="card cyber-border">
               <h3>Research Excellence</h3>
@@ -60,7 +63,7 @@ const About = () => {
 
 
         <section className="about-section">
-          <h2>Get Involved</h2>
+          <h2 className="section-title">Get Involved</h2>
           <div className="section-box cta-box">
             <p>
               Whether you're a student interested in cybersecurity, a company seeking research partnerships, or a professional looking to contribute, we welcome your involvement.
@@ -78,7 +81,7 @@ const About = () => {
       </div>
 
       <Footer />
-    </div>
+    </>
   );
 };
 
