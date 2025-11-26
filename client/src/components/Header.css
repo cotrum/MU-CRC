@@ -13,9 +13,11 @@
   z-index: 1000;
   transition: all 0.3s ease;
   width: 100%;
-  max-width: 100vw;
   box-sizing: border-box;
+  overflow-x: hidden;
+  flex-wrap: nowrap;
 }
+
 
 /* Scrolled header effect */
 .header.scrolled {
@@ -29,7 +31,9 @@
   align-items: center;
   text-decoration: none;
   transition: all 0.3s ease;
+  flex-shrink: 0;   
 }
+
 
 .header-logo img {
   height: 60px;
@@ -46,20 +50,26 @@
 /* Navigation */
 .header-nav {
   display: flex;
-  gap: 2rem;
+  gap: 1.2rem;
   align-items: center;
+  flex-shrink: 1;   
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  min-width: 0;     
 }
+
 
 .header-nav a {
   color: var(--white);
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.6rem;
   border-radius: var(--radius-sm);
   position: relative;
   transition: all 0.3s ease;
   letter-spacing: 0.025em;
+  white-space: nowrap;
 }
 
 /* Hover effect - underline animation */
