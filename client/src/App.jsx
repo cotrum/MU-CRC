@@ -6,6 +6,7 @@ import Events from './pages/Events.jsx';
 import Sponsorship from './pages/Sponsorship.jsx';
 import Contact from './pages/Contact.jsx';
 import Writeups from './pages/Writeups.jsx';
+import Login from './pages/Login.jsx'; 
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
           <Route path="/sponsorship" element={<Sponsorship />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/writeups" element={<Writeups />} />
+          <Route path="/login" element={<Login />} />
+
         </Routes>
       </div>
     </Router>
