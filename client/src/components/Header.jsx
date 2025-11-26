@@ -19,6 +19,7 @@ export default function Header() {
                 <Link to="/sponsorship">SPONSORSHIP</Link>
                 <Link to="/writeups">WRITEUPS</Link>
                 <Link to="/contact">CONTACT</Link>
+                <Link to="/login">LOG IN</Link>                
             </nav>
         </header>
     );
