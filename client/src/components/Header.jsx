@@ -18,6 +18,7 @@ export default function Header() {
                 <Link to="/events">EVENTS</Link>
                 <Link to="/sponsorship">SPONSORSHIP</Link>
                 <Link to="/writeups">WRITEUPS</Link>
+                <Link to="/games">GAMES</Link>
                 <Link to="/contact">CONTACT</Link>
             </nav>
         </header>

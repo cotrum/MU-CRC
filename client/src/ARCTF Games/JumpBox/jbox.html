@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jump Boxes in Cybersecurity</title>
+    <link rel="stylesheet" href="pfs.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="nav">
+        <a href="../index.html" class="logo">
+            <img src="../logo.png" alt="Logo" />
+        </a>
+        <div class="links">
+            <a href="../index.html">Home</a>
+            <a href="../pages/about.html">About Us</a>
+            <a href="../pages/challenges.html">Challenges</a>
+            <a href="../pages/leaderboard.html">Leaderboard</a>
+            <a href="../pages/helpfulhints.html">Helpful Hints</a>
+            <a href="../pages/login.html">Login</a>
+            <a href="../pages/signup.html">Signup</a>
+        </div>
+    </div>
+
+    <h1>Jump Boxes</h1>
+    <div class="section-box">
+        <h2>What is a Jump Box?</h2>
+        <p>A <strong>Jump Box</strong> (also known as a <strong>Jump Server</strong> or <strong>Bastion Host</strong>) is a secure intermediary system used in cybersecurity to manage and access devices in a protected network. It acts as a controlled gateway between external users and internal systems, allowing administrators to connect to sensitive network segments without exposing them directly to the internet.</p>
+    </div>
+
+    <div class="section-box">
+        <h2>Why Use a Jump Box?</h2>
+        <ul>
+            <li><strong>Reduced Attack Surface:</strong> By centralizing access through a single hardened system, you minimize the number of entry points for attackers.</li>
+            <li><strong>Enhanced Security:</strong> Jump boxes enforce strict access controls, such as multi-factor authentication (MFA) and limited user permissions.</li>
+            <li><strong>Activity Monitoring:</strong> All access to internal systems is logged, providing an audit trail for security teams.</li>
+            <li><strong>Isolation of Sensitive Systems:</strong> Internal systems are not directly exposed to the internet, reducing the risk of unauthorized access.</li>
+        </ul>
+    </div>
+
+    <div class="section-box">
+        <h2>How Does a Jump Box Work?</h2>
+        <p>Here’s a step-by-step explanation of how a jump box operates:</p>
+        <ol>
+            <li>An administrator connects to the jump box from their workstation.</li>
+            <li>The jump box authenticates the user (e.g., using MFA or SSH keys).</li>
+            <li>Once authenticated, the administrator can access internal systems (e.g., servers in a DMZ or private network) through the jump box.</li>
+            <li>Firewall rules restrict direct access to internal systems, ensuring that all traffic must pass through the jump box.</li>
+        </ol>
+    </div>
+
+    <div class="section-box">
+        <h2>Key Features of a Jump Box</h2>
+        <ul>
+            <li><strong>Hardened Security:</strong> The jump box is configured with strict security measures to resist attacks.</li>
+            <li><strong>Access Control:</strong> Only authorized users can connect to the jump box.</li>
+            <li><strong>Logging and Monitoring:</strong> All activity is logged for auditing and analysis.</li>
+            <li><strong>Network Segmentation:</strong> The jump box acts as a bridge between different network zones (e.g., external and DMZ).</li>
+        </ul>
+    </div>
+
+    <div class="section-box">
+        <h2>Quiz on Jump Boxes</h2>
+        <p>Test your knowledge about jump boxes with this quiz!</p>
+        <button class="btn" onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <script src="jbox.js"></script>
+</body>
+</html>
