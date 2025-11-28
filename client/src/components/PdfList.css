@@ -219,3 +219,37 @@
   font-weight: 600;
   text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
 }
+
+/* Loading state */
+.loading-state {
+  text-align: center;
+  color: var(--cyber-accent);
+  font-size: 1.2rem;
+  padding: 3rem;
+  font-weight: 600;
+}
+
+/* Error state */
+.error-state {
+  text-align: center;
+  color: #ef4444;
+  padding: 2rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-lg);
+}
+
+.error-state h3 {
+  color: #ef4444;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: #ef4444;
+  font-size: 0.9rem;
+}
