@@ -1,9 +1,42 @@
 /* PDF list container */
-.pdf-list {
+.pdf-list-container {
+  padding: 1rem 0;
+}
+
+/* CTF Group */
+.ctf-group {
+  margin-bottom: 3rem;
+  border: 2px solid #e5e7eb;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  background: var(--white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ctf-group-title {
+  color: var(--cyber-blue);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--cyber-accent);
+  position: relative;
+}
+
+.ctf-group-title::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyber-accent), transparent);
+}
+
+/* CTF writeups grid */
+.ctf-writeups-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
-  padding: 1rem 0;
 }
 
 /* Individual PDF card */
@@ -44,9 +77,9 @@
 }
 
 /* Card title */
-.pdf-card h3 {
+.pdf-card h4 {
   color: var(--cyber-blue);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   margin: 0;
   font-weight: 700;
   letter-spacing: -0.025em;
@@ -56,7 +89,7 @@
 .pdf-card p {
   color: var(--text-secondary);
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1.5;
 }
 
@@ -66,7 +99,7 @@
 }
 
 /* View writeup link */
-.pdf-card a {
+.view-writeup-btn {
   color: var(--cyber-blue);
   text-decoration: none;
   font-weight: 600;
@@ -81,7 +114,7 @@
   margin-top: auto;
 }
 
-.pdf-card a:hover {
+.view-writeup-btn:hover {
   color: var(--white);
   background: var(--cyber-accent);
   border-color: var(--cyber-accent);
@@ -117,9 +150,7 @@
 }
 
 /* Empty state */
-.pdf-list:empty::before {
-  content: 'No writeups available yet. Upload one to get started!';
-  display: block;
+.empty-state {
   text-align: center;
   color: var(--gray-mid);
   font-size: 1.1rem;
@@ -132,17 +163,22 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .pdf-list {
+  .ctf-writeups-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+
+  .ctf-group {
+    padding: 1.25rem;
+    margin-bottom: 2rem;
   }
 
   .pdf-card {
     padding: 1.25rem;
   }
 
-  .pdf-card h3 {
-    font-size: 1.1rem;
+  .pdf-card h4 {
+    font-size: 1rem;
   }
 }
 
@@ -151,7 +187,7 @@
     padding: 1rem;
   }
 
-  .pdf-card a {
+  .view-writeup-btn {
     padding: 0.625rem 1rem;
     font-size: 0.9rem;
   }
@@ -160,15 +196,19 @@
     padding: 0.5rem 0.875rem;
     font-size: 0.85rem;
   }
+  
+  .ctf-group {
+    padding: 1rem;
+  }
 }
 
 /* Loading state */
-.pdf-list.loading {
+.pdf-list-container.loading {
   opacity: 0.6;
   pointer-events: none;
 }
 
-.pdf-list.loading::after {
+.pdf-list-container.loading::after {
   content: 'Loading writeups...';
   position: absolute;
   top: 50%;
