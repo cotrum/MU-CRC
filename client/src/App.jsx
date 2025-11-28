@@ -18,12 +18,8 @@ function App() {
           <Route path="/sponsorship" element={<Sponsorship />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/writeups" element={<Writeups />} />
-<<<<<<< Updated upstream
-=======
           <Route path="/games" element={<Games />} />
           <Route path="/login" element={<Login />} />
-
->>>>>>> Stashed changes
         </Routes>
       </div>
     </Router>
