@@ -4,6 +4,8 @@ import Footer from "../components/Footer.jsx";
 import "../styles/global.css";
 import "../styles/layout.css";
 import "../styles/Login.css"; 
+import { Link } from "react-router-dom";
+
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -58,7 +60,7 @@ const Login = () => {
             </button>
 
             <p className="login-hint text-center">
-              Don’t have an account? <a href="/register">Register here</a>.
+             Don’t have an account? <Link to="/register">Register here</Link>.
             </p>
           </form>
         </div>

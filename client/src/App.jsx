@@ -7,6 +7,8 @@ import Sponsorship from './pages/Sponsorship.jsx';
 import Contact from './pages/Contact.jsx';
 import Writeups from './pages/Writeups.jsx';
 import Login from './pages/Login.jsx'; 
+import Signup from './pages/Signup.jsx';
+
 
 function App() {
   return (
@@ -20,7 +22,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/writeups" element={<Writeups />} />
           <Route path="/login" element={<Login />} />
-
+          <Route path="/register" element={<Signup />} />
         </Routes>
       </div>
     </Router>
