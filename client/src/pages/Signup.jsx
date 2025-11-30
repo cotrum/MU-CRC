@@ -11,11 +11,38 @@ const Signup = () => {
   const [email, setEmail]         = useState("");
   const [password, setPassword]   = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Signup submitted:", { firstName, lastName, email });
-    // Backend API logic goes here
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const newUser = {
+    firstName,
+    lastName,
+    email,
+    password,
   };
+
+  try {
+    const res = await fetch("http://localhost:5000/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newUser),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Account created successfully!");
+      window.location.href = "/login";
+    } else {
+      alert(data.msg);
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong.");
+  }
+};
+
 
   return (
     <>
