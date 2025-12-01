@@ -1,25 +1,50 @@
 import React, { useState } from "react";
-import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import "../styles/global.css";
 import "../styles/layout.css";
 import "../styles/Login.css"; 
 import { Link } from "react-router-dom";
 
-
-const Login = () => {
-  const [username, setUsername] = useState("");
+const Login = ({ onLogin }) => {  
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login attempted with:", username, password);
-    // Backend login logic will go here
+
+    console.log("Login attempted with:", email, password);
+
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.msg || "Login failed.");
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("loggedInUser", data.user.firstName);
+
+      if (onLogin) onLogin(); 
+
+      console.log("Logged in:", data.user);
+      window.location.href = "/";
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("An error occurred during login.");
+    }
   };
 
   return (
+    
     <>
-      <Header />
+      
 
       <div className="page-container">
         <h1 className="page-title">Login</h1>
@@ -32,13 +57,13 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="login-form">
 
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="email">Email</label>
               <input
-                id="username"
-                type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -72,3 +97,5 @@ const Login = () => {
 };
 
 export default Login;
+
+

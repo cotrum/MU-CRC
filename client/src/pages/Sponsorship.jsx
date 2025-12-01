@@ -5,7 +5,7 @@ import Header from "../components/Header.jsx"
 const Sponsorship = () => {
   return (
     <div>
-      <Header />
+      
       <h1>Sponsorship</h1>
       <p>Partner with us to support cybersecurity research.</p>
       <Footer />

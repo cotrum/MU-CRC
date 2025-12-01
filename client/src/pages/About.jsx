@@ -8,7 +8,7 @@ import "../styles/About.css";
 const About = () => {
   return (
     <>
-      <Header />
+      
       
       <div className="page-container">
         <h1 className="page-title">About Our Center</h1>

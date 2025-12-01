@@ -11,7 +11,7 @@ import MUCRClogo from "../../public/logos/295 + Gray/MU-Vertical Logo-PMS295-gra
 const Home = () => {
   return (
     <>
-      <Header />
+      
       
       <div className="page-container">
         <section className="hero-section">

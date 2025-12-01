@@ -29,7 +29,7 @@ const Contact = () => {
 
   return (
     <>
-      <Header />
+      
       
       <div className="page-container">
         <h1 className="page-title">Get In Touch</h1>
