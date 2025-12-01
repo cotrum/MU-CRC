@@ -7,7 +7,7 @@ export default function Footer() {
       <p>© 2025 Monmouth University Cybersecurity Research Center</p>
 
       <div className="socials">
-        <a href="https://twitter.com">Twitter</a>
+        <a href="mailto:mucrc@monmouth.edu">Email</a>
         <a href="https://github.com">GitHub</a>
         <a href="https://linkedin.com">LinkedIn</a>
       </div>
