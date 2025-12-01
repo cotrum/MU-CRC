@@ -1,19 +1,21 @@
 import express from 'express';
 import multer from 'multer';
-import path from 'path';
 import mongoose from 'mongoose';
+import { GridFSBucket } from 'mongodb';
 import Pdf from '../models/Pdf.js';
 
 const router = express.Router();
 
-// Multer storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) =>
-    cb(null, Date.now() + '-' + file.originalname)
-});
+// Use memory storage instead of disk storage
+const upload = multer({ storage: multer.memoryStorage() });
 
-const upload = multer({ storage });
+// Initialize GridFS bucket
+let bucket;
+mongoose.connection.once('open', () => {
+  bucket = new GridFSBucket(mongoose.connection.db, {
+    bucketName: 'pdfs'
+  });
+});
 
 
 // ----------------- LIST ALL PDF WRITEUPS -----------------
@@ -38,19 +40,38 @@ router.post('/upload', upload.single('pdf'), async (req, res) => {
 
     const { ctfName, challengeName } = req.body;
 
-    const pdf = new Pdf({
-      ctfName,
-      challengeName,
-      originalName: req.file.originalname,
-      filename: req.file.filename,
-      size: req.file.size,
+    // Create upload stream to GridFS
+    const uploadStream = bucket.openUploadStream(req.file.originalname, {
+      metadata: { 
+        ctfName, 
+        challengeName,
+        contentType: 'application/pdf'
+      }
     });
 
-    await pdf.save();
+    // Write buffer to GridFS
+    uploadStream.end(req.file.buffer);
 
-    res.status(201).json({
-      message: "Writeup uploaded successfully!",
-      pdf
+    uploadStream.on('finish', async () => {
+      // Save metadata to Pdf collection
+      const pdf = new Pdf({
+        ctfName,
+        challengeName,
+        originalName: req.file.originalname,
+        filename: uploadStream.id.toString(), // Store GridFS file ID
+        size: req.file.size,
+      });
+
+      await pdf.save();
+
+      res.status(201).json({
+        message: "Writeup uploaded successfully!",
+        pdf
+      });
+    });
+
+    uploadStream.on('error', (err) => {
+      res.status(500).json({ error: 'Upload failed', message: err.message });
     });
 
   } catch (err) {
@@ -59,13 +80,46 @@ router.post('/upload', upload.single('pdf'), async (req, res) => {
 });
 
 
+// ----------------- SERVE/VIEW PDF FILE -----------------
+router.get('/pdfs/view/:filename', async (req, res) => {
+  try {
+    const downloadStream = bucket.openDownloadStream(
+      new mongoose.Types.ObjectId(req.params.filename)
+    );
+    
+    res.set('Content-Type', 'application/pdf');
+    res.set('Content-Disposition', 'inline'); // Display in browser instead of download
+    
+    downloadStream.pipe(res);
+
+    downloadStream.on('error', (err) => {
+      res.status(404).json({ error: 'PDF not found', message: err.message });
+    });
+
+  } catch (err) {
+    res.status(404).json({ error: 'PDF not found', message: err.message });
+  }
+});
+
+
 // ----------------- DELETE WRITEUP -----------------
 router.delete('/pdfs/:id', async (req, res) => {
   try {
+    const pdf = await Pdf.findById(req.params.id);
+    
+    if (!pdf) {
+      return res.status(404).json({ error: 'Writeup not found' });
+    }
+
+    // Delete from GridFS
+    await bucket.delete(new mongoose.Types.ObjectId(pdf.filename));
+    
+    // Delete metadata from Pdf collection
     await Pdf.findByIdAndDelete(req.params.id);
+    
     res.json({ message: "Writeup deleted" });
   } catch (err) {
-    res.status(500).json({ error: 'Delete failed' });
+    res.status(500).json({ error: 'Delete failed', message: err.message });
   }
 });
 
