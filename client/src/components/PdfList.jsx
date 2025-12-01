@@ -115,7 +115,7 @@ export default function PdfList() {
                   <p><strong>CTF:</strong> {pdf.ctfName}</p>
 
                   <a
-                    href={`http://localhost:5000/uploads/${pdf.filename}`}
+                  href={`http://localhost:5000/api/pdfs/view/${pdf.filename}`}
                     target="_blank"
                     rel="noreferrer"
                     className="view-writeup-btn"
