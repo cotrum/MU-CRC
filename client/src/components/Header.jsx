@@ -33,8 +33,7 @@ export default function Header({ update }) {
 
                 {loggedIn ? (
                     <>
-                        <span>{userName}</span>
-                        <button onClick={logOut}>LOG OUT</button>
+                        <a onClick={logOut} style={{ cursor: 'pointer' }}>LOG OUT</a>
                     </>
                 ) : (
                     <Link to="/login">LOG IN</Link>
@@ -43,5 +42,3 @@ export default function Header({ update }) {
         </header>
     );
 }
-
-
