@@ -147,9 +147,6 @@ const Contact = () => {
             <div className="social-links">
               <h4>Follow Us</h4>
               <div className="social-icons">
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-                  <span>𝕏</span>
-                </a>
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-icon">
                   <span>GitHub</span>
                 </a>

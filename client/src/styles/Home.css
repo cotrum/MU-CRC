@@ -1,9 +1,12 @@
 /* Hero section */
 .hero-section {
   text-align: center;
-  padding: 3rem 2rem;
+  padding: 0;
   position: relative;
-  margin-top: 1rem;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .hero-glow {
@@ -15,12 +18,14 @@
   height: 600px;
   background: radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
 }
 
 .hero-content {
   position: relative;
   z-index: 1;
+  width: 100%;
+  height: 100%;
 }
 
 .hero-title {
@@ -238,45 +243,21 @@
   color: white;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-section {
-    padding: 4rem 1rem;
-  }
-  
-  .hero-glow {
-    width: 300px;
-    height: 300px;
-  }
-  
-  .features-section {
-    padding: 2rem 1rem;
-  }
-}
-/* Hero Carousel Layout - Three Column Design with Outside Arrows */
-.hero-content {
-  position: relative;
-  width: 100%;
-  max-width: 1800px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
+/* Hero Carousel Layout - Full Screen with Three Columns */
 .hero-carousel-layout {
   display: grid;
-  grid-template-columns: auto 1fr 1fr 1fr auto;
-  gap: 2rem;
-  min-height: 600px;
-  align-items: center;
+  grid-template-columns: 60px 1fr auto 1fr 60px;
+  gap: 0;
+  height: 100vh;
+  width: 100%;
+  align-items: stretch;
 }
 
-/* Carousel Sections (Left & Right thirds) */
+/* Carousel Sections - Full Height */
 .carousel-section {
   position: relative;
-  height: 500px;
+  height: 100vh;
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 42, 92, 0.2);
 }
 
 .carousel-bg-image {
@@ -295,10 +276,10 @@
   z-index: 1;
 }
 
-/* Outside Navigation Arrows - No Circle Background */
+/* Outside Navigation Arrows */
 .carousel-arrow-outside {
   background: none;
-  color: rgb(207, 207, 207);
+  color: rgba(255, 255, 255, 0.7);
   border: none;
   width: 60px;
   height: 60px;
@@ -313,30 +294,21 @@
   padding: 0;
   box-shadow: none;
   outline: none;
+  z-index: 10;
 }
 
 .carousel-arrow-outside:hover {
-  color: rgb(178, 178, 178);
+  color: rgba(255, 255, 255, 0.95);
   transform: scale(1.2);
-  background: none;
-  box-shadow: none;
-  outline: none;
 }
 
 .carousel-arrow-outside:active {
   transform: scale(1.1);
-  background: none;
-  box-shadow: none;
-  outline: none;
 }
 
 .carousel-arrow-outside:focus {
   outline: none;
   box-shadow: none;
-}
-
-.carousel-arrow-outside:active {
-  transform: scale(1.1);
 }
 
 /* Center Logo Section */
@@ -347,6 +319,7 @@
   padding: 2rem;
   z-index: 5;
   position: relative;
+  background: transparent;
 }
 
 .hero-logo {
@@ -356,16 +329,10 @@
   filter: drop-shadow(0 10px 40px rgba(0, 42, 92, 0.4));
 }
 
-
 /* Responsive Design */
 @media (max-width: 1200px) {
   .hero-carousel-layout {
-    min-height: 500px;
-    gap: 1.5rem;
-  }
-  
-  .carousel-section {
-    height: 400px;
+    grid-template-columns: 50px 1fr auto 1fr 50px;
   }
   
   .hero-logo {
@@ -375,26 +342,29 @@
   .carousel-arrow-outside {
     width: 50px;
     height: 50px;
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
 
 @media (max-width: 900px) {
+  .hero-section {
+    height: auto;
+    min-height: 100vh;
+  }
+
   .hero-carousel-layout {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto auto;
-    gap: 2rem;
-    min-height: auto;
+    grid-template-rows: 50px 40vh auto 40vh 50px;
+    height: auto;
+    min-height: 100vh;
   }
   
   .carousel-section {
-    height: 350px;
+    height: 40vh;
   }
   
-  /* Reorder for mobile */
   .carousel-arrow-outside.left {
     order: 1;
-    grid-column: 1;
   }
   
   .left-section {
@@ -403,6 +373,7 @@
   
   .logo-section {
     order: 3;
+    min-height: 300px;
   }
   
   .right-section {
@@ -414,19 +385,24 @@
   }
   
   .hero-logo {
-    width: 350px;
+    width: 280px;
   }
   
   .carousel-arrow-outside {
     width: 50px;
     height: 50px;
     justify-self: center;
+    font-size: 2rem;
   }
 }
 
 @media (max-width: 600px) {
+  .hero-carousel-layout {
+    grid-template-rows: 45px 35vh auto 35vh 45px;
+  }
+
   .carousel-section {
-    height: 300px;
+    height: 35vh;
   }
   
   .carousel-arrow-outside {
@@ -436,6 +412,10 @@
   }
   
   .hero-logo {
-    width: 250px;
+    width: 220px;
+  }
+
+  .logo-section {
+    min-height: 250px;
   }
 }

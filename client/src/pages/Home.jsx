@@ -61,68 +61,70 @@ const Home = () => {
     <>
       <Header />
       
-      <div className="page-container">
-        <section className="hero-section">
-          <div className="hero-glow" />
+      {/* Hero section is NOT inside page-container to allow full width */}
+      <section className="hero-section">
+        <div className="hero-glow" />
 
-          <div className="hero-content">
-            {/* Background carousel layout */}
-            <div className="hero-carousel-layout">
-              {/* Left Arrow (outside left carousel) */}
-              <button className="carousel-arrow-outside left" onClick={prevLeft}>
-                ‹
-              </button>
+        <div className="hero-content">
+          {/* Background carousel layout */}
+          <div className="hero-carousel-layout">
+            {/* Left Arrow (outside left carousel) */}
+            <button className="carousel-arrow-outside left" onClick={prevLeft}>
+              ‹
+            </button>
 
-              {/* Left Carousel */}
-              <div className="carousel-section left-section">
-                {leftImages.map((img, index) => (
-                  <img
-                    key={index}
-                    src={img}
-                    alt={`Team photo ${index + 1}`}
-                    className={`carousel-bg-image ${index === leftIndex ? 'active' : ''}`}
-                  />
-                ))}
-              </div>
-
-              {/* Center - Logo */}
-              <div className="logo-section">
-                <img 
-                  src={MUCRClogo} 
-                  alt="Monmouth University Cybersecurity Research Center" 
-                  className="hero-logo"
+            {/* Left Carousel */}
+            <div className="carousel-section left-section">
+              {leftImages.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`Team photo ${index + 1}`}
+                  className={`carousel-bg-image ${index === leftIndex ? 'active' : ''}`}
                 />
-              </div>
-
-              {/* Right Carousel */}
-              <div className="carousel-section right-section">
-                {rightImages.map((img, index) => (
-                  <img
-                    key={index}
-                    src={img}
-                    alt={`Team photo ${index + 4}`}
-                    className={`carousel-bg-image ${index === rightIndex ? 'active' : ''}`}
-                  />
-                ))}
-              </div>
-
-              {/* Right Arrow (outside right carousel) */}
-              <button className="carousel-arrow-outside right" onClick={nextRight}>
-                ›
-              </button>
+              ))}
             </div>
-          </div>
-        </section>
 
-<section className="features-section">
-  <h2 className="section-title">Our Mission</h2>
-  <div className="grid grid-3">
-    <div className="card cyber-border">
-      <h3 className="feature-card-title">RESEARCH</h3>
-      <p className="feature-card-description">
-        Cutting-edge cybersecurity research advancing the field of digital defense.
-      </p>
-    </div>
+            {/* Center - Logo */}
+            <div className="logo-section">
+              <img 
+                src={MUCRClogo} 
+                alt="Monmouth University Cybersecurity Research Center" 
+                className="hero-logo"
+              />
+            </div>
+
+            {/* Right Carousel */}
+            <div className="carousel-section right-section">
+              {rightImages.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`Team photo ${index + 4}`}
+                  className={`carousel-bg-image ${index === rightIndex ? 'active' : ''}`}
+                />
+              ))}
+            </div>
+
+            {/* Right Arrow (outside right carousel) */}
+            <button className="carousel-arrow-outside right" onClick={nextRight}>
+              ›
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Rest of content inside page-container */}
+      <div className="page-container">
+        <section className="features-section">
+          <h2 className="section-title">Our Mission</h2>
+          <div className="grid grid-3">
+            <div className="card cyber-border">
+              <h3 className="feature-card-title">RESEARCH</h3>
+              <p className="feature-card-description">
+                Cutting-edge cybersecurity research advancing the field of digital defense.
+              </p>
+            </div>
             
             <div className="card cyber-border">
               <h3 className="feature-card-title">EDUCATION</h3>
@@ -140,30 +142,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Team Section
-        <section className="team-section">
-          <h2 className="section-title">Meet Our Team</h2>
-          <div className="team-gallery">
-            <div className="team-photo-card">
-              <img 
-                src="/images/team/team-photo-1.jpg" 
-                alt="MUCRC Team at Conference"
-                className="team-photo"
-              />
-              <p className="team-photo-caption">Our team at CyberCon 2024</p>
-            </div>
-            
-            <div className="team-photo-card">
-              <img 
-                src="/images/team/team-photo-2.jpg" 
-                alt="MUCRC Lab"
-                className="team-photo"
-              />
-              <p className="team-photo-caption">Innovation happens here</p>
-            </div>
-          </div>
-        </section> */}
-
         {/* Stats Section */}
         <section className="stats-section">
           <div className="grid grid-4">
@@ -175,10 +153,6 @@ const Home = () => {
               <div className="stat-number">30+</div>
               <div className="stat-label">Students involved in cybersecurity research</div>
             </div>
-            {/* <div className="stat-card">
-              <div className="stat-number">15+</div>
-              <div className="stat-label">Industry Partners</div>
-            </div> */}
             <div className="stat-card">
               <div className="stat-number">1st</div>
               <div className="stat-label">Year of excellence!</div>
