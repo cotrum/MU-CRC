@@ -1,0 +1,80 @@
+/* Events subtitle */
+.events-subtitle {
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* Calendar Wrapper */
+.calendar-wrapper {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+}
+
+.calendar-iframe {
+  border: 0;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+/* Info Box */
+.info-box {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--gray-lighter);
+  border-radius: var(--radius-md);
+  border: 2px solid #e5e7eb;
+}
+
+.info-box h3 {
+  color: var(--cyber-blue);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.info-item {
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.info-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.info-note {
+  color: var(--text-secondary);
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.info-link {
+  color: var(--cyber-accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.info-link:hover {
+  color: var(--cyber-blue);
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .calendar-wrapper {
+    padding: 1rem;
+  }
+
+  .calendar-iframe {
+    height: 500px;
+  }
+
+  .info-box {
+    padding: 1rem;
+  }
+}
