@@ -30,6 +30,15 @@ const Login = ({ onLogin }) => {
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("loggedInUser", data.user.firstName);
+      localStorage.setItem("role", data.user.role);
+
+        // Check if membership is pending
+      if (data.user.role !== 'member') {
+        // Show message to user
+        alert('Your membership is pending admin approval. You can browse the site but cannot upload writeups yet.');
+      }
+      window.location.href = "/";
+
 
       if (onLogin) onLogin(); 
 

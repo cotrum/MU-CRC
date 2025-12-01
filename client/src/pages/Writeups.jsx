@@ -8,6 +8,8 @@ import "../styles/layout.css";
 
 const Writeups = () => {
   const loggedIn = !!localStorage.getItem('token');
+  const userRole = localStorage.getItem('role');
+  const isMember = loggedIn && userRole === 'member';
 
   return (
     <>
@@ -19,7 +21,7 @@ const Writeups = () => {
       
 
     
-      {loggedIn ?
+      {isMember ?
         ( <>
           <h2 className="section-title">Upload a Writeup</h2>
       <div className="section-box">
@@ -31,7 +33,7 @@ const Writeups = () => {
         (<>
           <h2 className="section-title">Upload a Writeup</h2>
           <div className="section-box">
-            <p>You must log in to upload writeups.</p>
+            <p>You must be a member to upload writeups.</p>
           </div>
         </>)
       }
@@ -50,4 +52,3 @@ const Writeups = () => {
 };
 
 export default Writeups;
-
