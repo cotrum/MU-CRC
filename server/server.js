@@ -30,9 +30,12 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' })
 })
 
-// Import and use upload routes
+// Import and use routes
 import uploadRoutes from './routes/index.js'
+import authRoutes from './routes/auth.js'  // Add this line
+
 app.use('/api', uploadRoutes)
+app.use('/api', authRoutes)  // Add this line
 
 // MongoDB connection with better timeout handling
 const MONGODB_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/pdfmanager'
