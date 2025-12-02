@@ -18,8 +18,6 @@ const Writeups = () => {
 
       <h1 className="page-title">Past CTF Competition Writeups</h1>
 
-      
-
     
       {isMember ?
         ( <>
@@ -38,7 +36,6 @@ const Writeups = () => {
         </>)
       }
         
-      
 
       <h2 className="section-title">Past CTF Writeups</h2>
       <div className="section-box">
