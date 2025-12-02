@@ -8,7 +8,7 @@ import "../styles/Events.css";
 const Events = () => {
   return (
     <>
-      <Header />
+    
       
       <div className="page-container">
         <h1 className="page-title">Events Calendar</h1>

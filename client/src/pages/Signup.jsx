@@ -10,15 +10,29 @@ const Signup = () => {
   const [lastName, setLastName]   = useState("");
   const [email, setEmail]         = useState("");
   const [password, setPassword]   = useState("");
+  const [confirmPassword, setConfirmPassword]   = useState("");
+  const [role, setRole] = useState("nonmember");
 
   const handleSubmit = async (e) => {
   e.preventDefault();
+  setRole("nonmember");
+
+  if (password != confirmPassword){
+    alert("Passwords do not match!");
+    return;
+  }
+
+  if (!firstName || !lastName || !email || !password || !confirmPassword){
+    alert("All fields must be filled in!");
+    return;
+  }
 
   const newUser = {
     firstName,
     lastName,
     email,
     password,
+    role,
   };
 
   try {
@@ -46,7 +60,7 @@ const Signup = () => {
 
   return (
     <>
-      <Header />
+      
 
       <div className="page-container">
         <h1 className="page-title">Create an Account</h1>
@@ -102,6 +116,18 @@ const Signup = () => {
                 placeholder="Create a password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input
+                id="confirmPassword"
+                type="password"
+                placeholder="Confirm your new password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
             </div>

@@ -8,7 +8,7 @@ import "../styles/About.css";
 const About = () => {
   return (
     <>
-      <Header />
+      
       
       <div className="page-container">
         <h1 className="page-title">About Our Center</h1>
@@ -26,6 +26,23 @@ const About = () => {
               Our mission is to prepare the next generation of cybersecurity professionals while conducting innovative research that addresses real-world security challenges. We strive to create a collaborative environment where students, faculty, and industry partners work together to protect digital infrastructure and advance cybersecurity knowledge.
             </p>
           </div>
+
+          {/* LinkedIn Image Banner */}
+          <a 
+            href="https://www.linkedin.com/posts/monmouth-university-csse-754944384_cyber-cybersec-cybersecurity-activity-7394797550693744640-MQx6?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEhsZesBAZA72I69EXCct0V_oyvV3mSAzzc" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="linkedin-banner-link"
+          >
+            <img 
+              src="/images/linkedin-banner.jpg" 
+              alt="See us on LinkedIn!" 
+              className="linkedin-banner-image"
+            />
+            <div className="linkedin-banner-overlay">
+              <span className="linkedin-banner-text">See Us On LinkedIn!</span>
+            </div>
+          </a>
         </section>
 
         <section className="about-section">
@@ -60,7 +77,6 @@ const About = () => {
             </div>
           </div>
         </section>
-
 
         <section className="about-section">
           <h2>Get Involved</h2>

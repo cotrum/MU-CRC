@@ -6,8 +6,15 @@ export default function PdfList() {
   const [groupedPdfs, setGroupedPdfs] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
+    // Check user role from localStorage
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setUserRole(user.role);
+    }
+
     const fetchPdfs = async () => {
       try {
         setLoading(true);
@@ -52,8 +59,19 @@ export default function PdfList() {
     if (!window.confirm("Delete this writeup?")) return;
 
     try {
+      const token = localStorage.getItem("token");
+      
+      if (!token) {
+        alert("You must be logged in to delete writeups.");
+        window.location.href = "/login";
+        return;
+      }
+
       const res = await fetch(`http://localhost:5000/api/pdfs/${id}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
       });
 
       if (res.ok) {
@@ -68,6 +86,11 @@ export default function PdfList() {
           }
         }
         setGroupedPdfs(updatedGrouped);
+      } else if (res.status === 401) {
+        alert('You must be logged in to delete writeups.');
+        window.location.href = "/login";
+      } else if (res.status === 403) {
+        alert('You must be a member to delete writeups.');
       } else {
         alert('Failed to delete writeup');
       }
@@ -76,6 +99,9 @@ export default function PdfList() {
       alert('Error deleting writeup');
     }
   };
+
+  // Check if user can delete (member or admin)
+  const canDelete = userRole === 'member' || userRole === 'admin';
 
   if (loading) {
     return (
@@ -115,7 +141,7 @@ export default function PdfList() {
                   <p><strong>CTF:</strong> {pdf.ctfName}</p>
 
                   <a
-                  href={`http://localhost:5000/api/pdfs/view/${pdf.filename}`}
+                    href={`http://localhost:5000/api/pdfs/view/${pdf.filename}`}
                     target="_blank"
                     rel="noreferrer"
                     className="view-writeup-btn"
@@ -123,12 +149,15 @@ export default function PdfList() {
                     View Writeup
                   </a>
 
-                  <button 
-                    onClick={() => deletePdf(pdf._id)} 
-                    className="delete-btn"
-                  >
-                    Delete
-                  </button>
+                  {/* Only show delete button if user is member or admin */}
+                  {canDelete && (
+                    <button 
+                      onClick={() => deletePdf(pdf._id)} 
+                      className="delete-btn"
+                    >
+                      Delete
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
