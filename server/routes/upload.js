@@ -3,6 +3,7 @@ import multer from 'multer';
 import mongoose from 'mongoose';
 import { GridFSBucket } from 'mongodb';
 import Pdf from '../models/Pdf.js';
+import { verifyToken, checkRole } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -101,9 +102,8 @@ router.get('/pdfs/view/:filename', async (req, res) => {
   }
 });
 
-
 // ----------------- DELETE WRITEUP -----------------
-router.delete('/pdfs/:id', async (req, res) => {
+router.delete('/pdfs/:id', verifyToken, checkRole(['member', 'admin']), async (req, res) => {
   try {
     const pdf = await Pdf.findById(req.params.id);
     

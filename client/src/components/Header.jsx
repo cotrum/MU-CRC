@@ -6,6 +6,7 @@ import "../styles/layout.css";
 export default function Header({ update }) {
     const loggedIn = !!localStorage.getItem('token'); 
     const userName = localStorage.getItem('loggedInUser') || "";
+    const userRole = localStorage.getItem('role'); // Get user role
 
     function logOut() {
         localStorage.removeItem('token');
@@ -30,6 +31,11 @@ export default function Header({ update }) {
                 <Link to="/sponsorship">SPONSORSHIP</Link>
                 <Link to="/writeups">WRITEUPS</Link>
                 <Link to="/contact">CONTACT</Link>
+
+                {/* Show Admin link only for admin users */}
+                {userRole === 'admin' && (
+                    <Link to="/admin">ADMIN</Link>
+                )}
 
                 {loggedIn ? (
                     <>

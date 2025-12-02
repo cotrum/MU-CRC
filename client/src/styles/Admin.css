@@ -1,0 +1,235 @@
+/* Admin Dashboard Styles */
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.admin-description {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* Users Table */
+.users-table-container {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 2px solid #e5e7eb;
+}
+
+.users-table {
+  width: 100%;
+  background: var(--white);
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.users-table th {
+  background: linear-gradient(135deg, var(--cyber-blue) 0%, var(--cyber-accent) 100%);
+  color: var(--white);
+  font-weight: 600;
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 2px solid var(--cyber-accent);
+}
+
+.users-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: var(--text-secondary);
+}
+
+.users-table tr:hover {
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.users-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Role Badges */
+.role-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.role-admin {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(139, 92, 246, 0.3);
+}
+
+.role-member {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+}
+
+.role-nonmember {
+  background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3);
+}
+
+/* Role Select Dropdown */
+.role-select {
+  background: var(--white);
+  border: 2px solid #e5e7eb;
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 140px;
+}
+
+.role-select:focus {
+  outline: none;
+  border-color: var(--cyber-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.role-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Update Button */
+.update-btn {
+  background: linear-gradient(135deg, var(--cyber-blue) 0%, var(--cyber-blue-bright) 100%);
+  color: var(--white);
+  border: 1px solid var(--cyber-blue-bright);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.update-btn:hover {
+  background: linear-gradient(135deg, var(--cyber-blue-light) 0%, var(--cyber-accent) 100%);
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+  transform: translateY(-2px);
+}
+
+.update-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.updating-text {
+  color: var(--cyber-accent);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Admin Stats */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.stat-card {
+  background: var(--white);
+  border: 2px solid #e5e7eb;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: var(--cyber-accent);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+  transform: translateY(-5px);
+}
+
+.stat-card h3 {
+  color: var(--cyber-blue);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cyber-accent);
+  margin: 0;
+}
+
+/* Loading and Error States */
+.loading-state {
+  text-align: center;
+  color: var(--cyber-accent);
+  font-size: 1.2rem;
+  padding: 3rem;
+  font-weight: 600;
+}
+
+.error-state {
+  text-align: center;
+  color: #ef4444;
+  padding: 2rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-lg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 1rem;
+  }
+
+  .users-table {
+    font-size: 0.9rem;
+  }
+
+  .users-table th,
+  .users-table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .role-select {
+    width: 120px;
+    font-size: 0.85rem;
+  }
+
+  .admin-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .users-table {
+    font-size: 0.85rem;
+  }
+
+  .role-badge {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+  }
+}
