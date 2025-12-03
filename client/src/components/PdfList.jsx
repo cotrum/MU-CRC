@@ -81,7 +81,6 @@ export default function PdfList() {
     try {
       const token = localStorage.getItem("token");
       
-      // Catastrophy mitigation
       if (!token) {
         alert("You must be logged in to delete writeups.");
         window.location.href = "/login";
@@ -128,7 +127,6 @@ export default function PdfList() {
       
       const token = localStorage.getItem("token");
       
-      // Catastrophy mitigation
       if (!token) {
         alert("You must be logged in to toggle visibility.");
         window.location.href = "/login";
@@ -175,7 +173,8 @@ export default function PdfList() {
     }
   };
 
-  // Check if user can manage writeups (member or admin)
+  // Check if user can manage writeups (ONLY member or admin)
+  // Nonmembers should NOT see any management controls
   const canManageWriteups = userRole === 'member' || userRole === 'admin';
 
   if (loading) {
@@ -236,7 +235,7 @@ export default function PdfList() {
                     </a>
 
                     {/* Only show action buttons for members/admins */}
-                    {canManageWriteups && (
+                    {canManageWriteups ? (
                       <div className="action-buttons">
                         <button 
                           onClick={() => toggleVisibility(pdf._id, pdf.visible)}
@@ -253,6 +252,9 @@ export default function PdfList() {
                           Delete
                         </button>
                       </div>
+                    ) : (
+                      // Nonmembers see only the view button - no action buttons
+                      <div className="action-buttons-placeholder"></div>
                     )}
                   </div>
                 </div>
