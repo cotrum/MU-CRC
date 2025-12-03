@@ -6,6 +6,9 @@ import Events from './pages/Events.jsx';
 import Sponsorship from './pages/Sponsorship.jsx';
 import Contact from './pages/Contact.jsx';
 import Writeups from './pages/Writeups.jsx';
+import Login from './pages/Login.jsx'; 
+import Signup from './pages/Signup.jsx';
+
 
 function App() {
   return (

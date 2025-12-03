@@ -20,6 +20,7 @@ export default function Header() {
                 <Link to="/writeups">WRITEUPS</Link>
                 <Link to="/games">GAMES</Link>
                 <Link to="/contact">CONTACT</Link>
+                <Link to="/login">LOG IN</Link>                
             </nav>
         </header>
     );
