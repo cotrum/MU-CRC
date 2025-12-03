@@ -5,7 +5,6 @@ import dotenv from 'dotenv'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import fs from 'fs'
-import adminRoutes from './routes/admin.js'
 
 dotenv.config()
 
