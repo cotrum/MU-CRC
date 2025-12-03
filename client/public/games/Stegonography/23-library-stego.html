@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donuts | RC3TF</title>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Orbitron">
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">logo</div>
+        <div class="links">
+            <a href="../index.html">Home</a>
+            <a href="../pages/challenges.html">Challenges</a>
+            <a href="../pages/leaderboard.html">Leaderboard</a>
+            <a href="../pages/helpfulhints.html">Helpful Hints</a>
+            <a href="../pages/login.html">Login</a>
+            <a href="../pages/signup.html">Signup</a>
+        </div>
+    </div>
+    <style>
+        body {
+            background-image: url('../pages/background1.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            margin: 0;
+        }
+        .text-container {
+            padding: 20px;
+            text-align: center;
+        }
+        .challenge-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .challenge-container img {
+            width: 300px;
+            height: auto;
+        }
+        .download-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #677db0;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+            margin-bottom: 20px;
+        }
+        .download-link:hover {
+            background: #a6cdf9;
+        }
+        .flag-input {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #677db0;
+            border-radius: 5px;
+            width: 250px;
+            text-align: center;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #677db0;
+            color: white;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #a6cdf9;
+        }
+        .message {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+    
+    <div class="text-container">
+        <h1><u>FOLSOM LIBRARY</u> - Steganography</h1>
+        <h2>Mmmmm these donuts look yummy... but I think they're hiding something!</h2>
+        <a class="download-link" href="donuts.jpg" download="bin_of_donuts.jpg">Download Challenge Image</a>
+    </div>
+    
+    <div class="challenge-container">
+        <img src="donuts.jpg" alt="Challenge Image">
+
+        <!-- Flag Submission Section -->
+        <div class="flag-input">
+            Flag format: RCC{   }
+            <input type="text" id="flagInput" placeholder="Enter flag here">
+            <button onclick="checkFlag()">Submit</button>
+            <p id="message" class="message"></p>
+        </div>
+    </div>
+
+    <script>
+        function checkFlag() {
+            const correctFlag = "RCC{1l0v3d0nut5}";
+            const userFlag = document.getElementById("flagInput").value.trim();
+            const message = document.getElementById("message");
+
+            if (userFlag === correctFlag) {
+                message.textContent = "Correct! 🎉";
+                message.className = "message success";
+            } else {
+                message.textContent = "Incorrect, try again!";
+                message.className = "message error";
+            }
+        }
+    </script>
+
+</body>
+</html>

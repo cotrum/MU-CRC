@@ -12,14 +12,12 @@ const Home = () => {
   // Add your team images here
   const leftImages = [
     "/images/mucrcimage.jpg",
-    "/images/team/team-photo-2.jpg",
-    "/images/team/team-photo-3.jpg",
+    "/images/teamPic.jpg"
   ];
   
   const rightImages = [
-    "/images/team/team-photo-4.jpg",
-    "/images/team/team-photo-5.jpg",
-    "/images/team/team-photo-6.jpg",
+    "/images/cyber-hawks.jpg",
+    "/images/mucrcimage.jpg"
   ];
 
   const [leftIndex, setLeftIndex] = useState(0);

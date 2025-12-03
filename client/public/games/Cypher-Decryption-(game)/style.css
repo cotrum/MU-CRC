@@ -1,0 +1,103 @@
+#timer {
+   font-size: 20px;
+   margin-top: 10px;
+   font-weight: bold;
+   color: black;
+}
+
+#gameFrame{
+   width: 200px;
+   height: 230px;
+   border: 3px solid black;
+   background: radial-gradient(circle, rgb(20, 20, 20) 0%, rgb(20, 20, 20) 50%,  rgb(77, 77, 77) 95%,  rgb(90, 90, 90) 100%);
+   border-radius: 5px;
+}
+
+.message{
+   font-size: 15px;
+   position: relative;
+   left: 12px;
+   top: 10px;
+   width: 176px;
+   margin-bottom: 10px;
+   font-weight: bold;
+}
+
+#encryptedMessage{
+   color: rgb(201, 218, 248);
+}
+
+#decryptedMessage{
+   margin-top: -70px;
+   color: rgb(217, 234, 211);
+}
+
+.sprite-container {
+   position: relative;
+   width: 200px; /* Adjust as needed */
+   height: 200px; /* Adjust as needed */
+   border-radius: 50%; /* Make the container circular */
+   overflow: hidden; /* Ensure the overlay stays within the circular container */
+}
+
+#outerWheel {
+   position: absolute;
+   left: 15%;
+   width: 70%;
+   height: 70%;
+   border-radius: 50%; 
+}
+
+#innerWheel {
+   position: absolute;
+   top: 7%;
+   left: 22%;
+   width: 56%;
+   height: 56%;
+   border-radius: 50%; 
+}
+
+#innerWheel:hover {
+   cursor: pointer;
+}
+
+#submitButton{
+   position: absolute;
+   border-style: groove;
+   border-color: rgb(217, 234, 211);
+   background-color: rgb(217, 234, 211);
+   font-weight: bold;
+   color: #666;
+   text-shadow: 
+      1px 1px 0 rgb(210, 225, 205), 
+      -1px -1px 0 rgb(210, 225, 205), 
+      1px -1px 0 rgb(210, 225, 205), 
+      -1px 1px 0 rgb(210, 225, 205); /* Creates the groove effect */
+   z-index: 2;
+   font-size: 10px;
+   padding: 0px 1px 0px 0px;
+   width: 40px;
+   top: 142px;
+   left: 91px;
+}
+
+#submitButton:hover{
+   cursor: pointer;
+}
+
+#startButton{
+   width: 200px;
+   height: 25px;
+   margin: 5px 0 0 2px;
+   border-radius: 10px;
+   border: 1px solid black;
+   font-size: 18px;
+   font-weight: bold;
+   font-family:'Times New Roman', Times, serif;
+   background-color: greenyellow;
+}
+
+#startButton:hover{
+   cursor: pointer;
+   background-color: green;
+}

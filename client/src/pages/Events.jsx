@@ -11,17 +11,17 @@ const Events = () => {
     
       
       <div className="page-container">
-        <h1 className="page-title">Events Calendar</h1>
+        <h1 className="page-title">Events</h1>
 
         <section className="about-intro">
           <p className="lead-text">
-            Stay updated with our upcoming cybersecurity events, workshops, and meetings. 
+            We hold weekly meetings & host cybersecurity events and workshops throughout the semester! Stay up-to-date with our events calendar. 
             All events are displayed in Eastern Time.
           </p>
         </section>
 
         <section className="about-section">
-          <h2>Upcoming Events</h2>
+          <h2>Events Calendar</h2>
           <div className="section-box">
             {/* Calendar Iframe */}
             <div className="calendar-wrapper cyber-border">

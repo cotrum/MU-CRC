@@ -1,0 +1,93 @@
+/* Global Body styling with background image */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #d3dce6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: url('../resources/cyber3.jpg') no-repeat center center fixed;  /* Background image */
+  background-size: cover;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Main page heading styling */
+h1 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Challenge container styling */
+.challenge {
+  width: 100%;
+  max-width: 600px;
+  background-color: #1a1f29;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Challenge headings */
+.challenge h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Paragraph styling within each challenge */
+.challenge p {
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  color: #c5c6c7;
+}
+
+/* Input field styling within challenge sections */
+.challenge input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #1f2b38;
+  border-radius: 6px;
+  background-color: #101820;
+  color: #d3dce6;
+  margin-bottom: 10px;
+}
+
+/* Button styling within challenge sections */
+.challenge button {
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #1f2b38;
+  color: #ffffff;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.challenge button:hover {
+  background-color: #4c91e3;
+  transform: translateY(-2px);
+}
+
+/* Output div styling */
+#output {
+  width: 100%;
+  max-width: 600px;
+  background-color: #1a1f29;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  font-size: 17px;
+  color: #c5c6c7;
+}

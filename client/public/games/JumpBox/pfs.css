@@ -1,0 +1,168 @@
+body {
+    background-image: url('../pages/background1.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #d3dce6;
+    background-color: #0d1117;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 150px;
+}
+
+.nav {
+    background: #ceedf8;
+    padding: 0 20px;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1f2b38;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.nav .logo img {
+    height: 120%;
+    width: auto;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+}
+
+.nav .logo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav .links {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.nav .links a {
+    color: #101820;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold; /* Bold text */
+    padding: 10px 15px;
+}
+
+.nav .links a:hover {
+    text-decoration: underline;
+}
+
+.container, .section-box, #quiz-popup {
+    width: 100%;
+    max-width: 800px;
+    height: 300px; /* Fixed height for consistent box size */
+    padding: 30px;
+    background-color: #101820;
+    border: 1px solid #1f2b38;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
+}
+
+.container h1, .container h2, .container h3, .container h4, .container h5, .container h6 {
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.container p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #c5c6c7;
+}
+
+.btn {
+    display: inline-block;
+    width: auto;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #1f2b38;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #4c91e3;
+    transform: translateY(-2px);
+}
+
+.container ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.container li {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #c5c6c7;
+    margin-bottom: 8px;
+}
+
+.container li strong {
+    color: #4c91e3;
+}
+
+#quiz-container h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #ffffff;
+    font-weight: bold;
+    font-family: 'Orbitron';
+}
+
+#quiz-form p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#quiz-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#quiz-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #1f2b38;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+#quiz-form button:hover {
+    background-color: #4c91e3;
+    transform: translateY(-2px);
+}

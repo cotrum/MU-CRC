@@ -16,7 +16,10 @@ const Writeups = () => {
     <>
     
       <div className="page-container">
-        <h1 className="page-title">Past CTF Competition Writeups</h1>
+        <h1 className="page-title">CRC CTF Team Writeups</h1>
+    <div className="section-box">
+          <PdfList />
+        </div>
 
         {/* Allow both members AND admins to upload */}
         {isMember || isAdmin ? (
@@ -34,13 +37,9 @@ const Writeups = () => {
             </div>
           </>
         )}
-        
-        <h2 className="section-title">Past CTF Writeups</h2>
-        <div className="section-box">
-          <PdfList />
-        </div>
-      </div>
-      <Footer />
+     
+    </div>
+    <Footer />
     </>
   );
 };
