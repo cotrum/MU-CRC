@@ -173,9 +173,11 @@ export default function PdfList() {
     }
   };
 
-  // Check if user can manage writeups (ONLY member or admin)
-  // Nonmembers should NOT see any management controls
-  const canManageWriteups = userRole === 'member' || userRole === 'admin';
+  // Check if user can delete (member or admin)
+  const canDelete = userRole === 'member' || userRole === 'admin';
+  
+  // Check if user can toggle visibility (member or admin)
+  const canToggleVisibility = userRole === 'member' || userRole === 'admin';
 
   if (loading) {
     return (
@@ -212,8 +214,7 @@ export default function PdfList() {
                 <div key={pdf._id} className="pdf-card">
                   <div className="pdf-card-header">
                     <h4>{pdf.challengeName}</h4>
-                    {/* Only show visibility badge for members/admins */}
-                    {canManageWriteups && (
+                    {canToggleVisibility && (
                       <div className="visibility-badge">
                         <span className={`visibility-indicator ${pdf.visible ? 'visible' : 'hidden'}`}>
                           {pdf.visible ? 'Visible' : 'Hidden'}
@@ -234,9 +235,9 @@ export default function PdfList() {
                       View Writeup
                     </a>
 
-                    {/* Only show action buttons for members/admins */}
-                    {canManageWriteups ? (
-                      <div className="action-buttons">
+                    <div className="action-buttons">
+                      {/* Toggle visibility button for members/admins */}
+                      {canToggleVisibility && (
                         <button 
                           onClick={() => toggleVisibility(pdf._id, pdf.visible)}
                           className={`visibility-toggle-btn ${pdf.visible ? 'hide-btn' : 'show-btn'}`}
@@ -244,18 +245,18 @@ export default function PdfList() {
                         >
                           {toggling[pdf._id] ? '...' : (pdf.visible ? 'Hide' : 'Show')}
                         </button>
+                      )}
 
+                      {/* Delete button for members/admins */}
+                      {canDelete && (
                         <button 
                           onClick={() => deletePdf(pdf._id)} 
                           className="delete-btn"
                         >
                           Delete
                         </button>
-                      </div>
-                    ) : (
-                      // Nonmembers see only the view button - no action buttons
-                      <div className="action-buttons-placeholder"></div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
