@@ -1,6 +1,5 @@
 import React from 'react';
 import Footer from "../components/Footer.jsx";
-import Header from "../components/Header.jsx";
 import "../styles/global.css";
 import "../styles/layout.css";
 import "../styles/Sponsorship.css";
@@ -31,7 +30,6 @@ const Sponsorship = () => {
 
   return (
     <>
-      <Header />
 
       <div className="page-container">
         <h1 className="page-title">Our Sponsors</h1>

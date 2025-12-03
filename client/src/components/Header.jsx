@@ -1,9 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";  
 import "../styles/layout.css";
-import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ update }) {
+    const loggedIn = !!localStorage.getItem('token'); 
+    const userName = localStorage.getItem('loggedInUser') || "";
+
+    function logOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('loggedInUser');
+        localStorage.removeItem('role');
+        if (update) update(); 
+        window.location.href = "/";
+    }
+
     return (
         <header className="header">
             <Link to="/" className="header-logo">
@@ -20,7 +31,14 @@ export default function Header() {
                 <Link to="/writeups">WRITEUPS</Link>
                 <Link to="/games">GAMES</Link>
                 <Link to="/contact">CONTACT</Link>
-                <Link to="/login">LOG IN</Link>                
+
+                {loggedIn ? (
+                    <>
+                        <a onClick={logOut} style={{ cursor: 'pointer' }}>LOG OUT</a>
+                    </>
+                ) : (
+                    <Link to="/login">LOG IN</Link>
+                )}
             </nav>
         </header>
     );
