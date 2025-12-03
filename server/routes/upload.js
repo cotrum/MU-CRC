@@ -3,6 +3,7 @@ import multer from 'multer';
 import mongoose from 'mongoose';
 import { GridFSBucket } from 'mongodb';
 import Pdf from '../models/Pdf.js';
+import { getUserFromToken } from '../utils/authHelper.js';
 
 const router = express.Router();
 
@@ -20,15 +21,44 @@ mongoose.connection.once('open', () => {
 
 // ----------------- LIST ALL PDF WRITEUPS -----------------
 router.get('/pdfs', async (req, res) => {
-  const pdfs = await Pdf.find().sort({ uploadDate: -1 });
-  res.json(pdfs);
+  try {
+    // Check user role
+    const user = await getUserFromToken(req);
+    const userRole = user ? user.role : null;
+    
+    let query = {};
+    
+    // If user is not logged in or is nonmember, only show visible writeups
+    if (!userRole || userRole === 'nonmember') {
+      query.visible = true;
+    }
+    
+    const pdfs = await Pdf.find(query).sort({ uploadDate: -1 });
+    res.json(pdfs);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 
 // ----------------- LIST ALL CTF NAMES -----------------
 router.get('/ctf-names', async (req, res) => {
-  const names = await Pdf.distinct('ctfName');
-  res.json(names);
+  try {
+    const user = await getUserFromToken(req);
+    const userRole = user ? user.role : null;
+    
+    let query = {};
+    
+    // If user is not logged in or is nonmember, only include visible writeups
+    if (!userRole || userRole === 'nonmember') {
+      query.visible = true;
+    }
+    
+    const names = await Pdf.distinct('ctfName', query);
+    res.json(names);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 
@@ -60,6 +90,7 @@ router.post('/upload', upload.single('pdf'), async (req, res) => {
         originalName: req.file.originalname,
         filename: uploadStream.id.toString(), // Store GridFS file ID
         size: req.file.size,
+        visible: true // New writeups are visible by default
       });
 
       await pdf.save();
@@ -105,6 +136,20 @@ router.get('/pdfs/view/:filename', async (req, res) => {
 // ----------------- DELETE WRITEUP -----------------
 router.delete('/pdfs/:id', async (req, res) => {
   try {
+    // Check if user is authenticated and has proper role
+    const user = await getUserFromToken(req);
+    
+    if (!user) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
+
+    // Check if user has permission (member or admin)
+    if (user.role !== 'member' && user.role !== 'admin') {
+      return res.status(403).json({ 
+        error: 'Access denied. Member or admin privileges required.' 
+      });
+    }
+
     const pdf = await Pdf.findById(req.params.id);
     
     if (!pdf) {
@@ -120,6 +165,49 @@ router.delete('/pdfs/:id', async (req, res) => {
     res.json({ message: "Writeup deleted" });
   } catch (err) {
     res.status(500).json({ error: 'Delete failed', message: err.message });
+  }
+});
+
+
+// ----------------- TOGGLE WRITEUP VISIBILITY -----------------
+router.put('/pdfs/:id/visibility', async (req, res) => {
+  try {
+    // Check if user is authenticated and has proper role
+    const user = await getUserFromToken(req);
+    
+    if (!user) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
+
+    // Check if user has permission (member or admin)
+    if (user.role !== 'member' && user.role !== 'admin') {
+      return res.status(403).json({ 
+        error: 'Access denied. Member or admin privileges required.' 
+      });
+    }
+
+    const { visible } = req.body;
+    
+    if (typeof visible !== 'boolean') {
+      return res.status(400).json({ error: 'Visible must be a boolean' });
+    }
+
+    const pdf = await Pdf.findByIdAndUpdate(
+      req.params.id,
+      { visible },
+      { new: true }
+    );
+    
+    if (!pdf) {
+      return res.status(404).json({ error: 'Writeup not found' });
+    }
+    
+    res.json({ 
+      message: `Writeup ${visible ? 'made visible' : 'hidden'}`,
+      pdf 
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update visibility', message: err.message });
   }
 });
 

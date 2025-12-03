@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
-
+import { getUserFromToken } from '../utils/authHelper.js';
 
 const router = express.Router();
 
@@ -92,6 +92,28 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: "Server error." });
+  }
+});
+
+// GET /userinfo - Get current user info
+router.get("/userinfo", async (req, res) => {
+  try {
+    const user = await getUserFromToken(req);
+    
+    if (!user) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+
+    res.json({
+      id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      role: user.role
+    });
+  } catch (err) {
+    console.error('Error fetching user info:', err);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 

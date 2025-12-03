@@ -8,6 +8,7 @@ import Contact from './pages/Contact.jsx';
 import Writeups from './pages/Writeups.jsx';
 import Login from './pages/Login.jsx'; 
 import Signup from './pages/Signup.jsx';
+import Admin from './pages/Admin.jsx'; // Add this import
 import Header from './components/Header.jsx';
 import GamesGallery from './pages/Games.jsx';
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/login" element={<Login onLogin={triggerUpdate} />} />
           <Route path="/register" element={<Signup onSignup={triggerUpdate} />} />
           <Route path="/games" element={ <GamesGallery /> } />
+          <Route path="/admin" element={<Admin />} /> {/* Add this route */}
         </Routes>
       </div>
     </Router>

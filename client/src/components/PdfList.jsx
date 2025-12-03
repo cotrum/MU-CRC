@@ -7,56 +7,76 @@ export default function PdfList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userRole, setUserRole] = useState(null);
+  const [toggling, setToggling] = useState({});
 
   useEffect(() => {
-    // Check user role from localStorage
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      setUserRole(user.role);
-    }
-
-    const fetchPdfs = async () => {
+    // Get user role properly from localStorage
+    const getUserRole = () => {
       try {
-        setLoading(true);
-        const res = await fetch("http://localhost:5000/api/pdfs");
-        
-        if (!res.ok) {
-          throw new Error(`Server error: ${res.status}`);
-        }
-        
-        const data = await res.json();
-        
-        // Check if data is an array
-        if (Array.isArray(data)) {
-          setPdfs(data);
-          // Group PDFs by CTF name
-          const grouped = data.reduce((acc, pdf) => {
-            const ctfName = pdf.ctfName || 'Unknown CTF';
-            if (!acc[ctfName]) {
-              acc[ctfName] = [];
-            }
-            acc[ctfName].push(pdf);
-            return acc;
-          }, {});
-          setGroupedPdfs(grouped);
-        } else {
-          throw new Error('Invalid data format received from server');
-        }
+        const user = JSON.parse(localStorage.getItem("user") || '{}');
+        const role = user.role || localStorage.getItem("role");
+        return role;
       } catch (err) {
-        console.error('Error fetching PDFs:', err);
-        setError(err.message);
-        setPdfs([]);
-        setGroupedPdfs({});
-      } finally {
-        setLoading(false);
+        return null;
       }
     };
+
+    const role = getUserRole();
+    if (role) {
+      setUserRole(role);
+    }
 
     fetchPdfs();
   }, []);
 
+  const fetchPdfs = async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      const headers = {};
+      
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      
+      const res = await fetch("http://localhost:5000/api/pdfs", {
+        headers
+      });
+      
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+      }
+      
+      const data = await res.json();
+      
+      // Check if data is an array
+      if (Array.isArray(data)) {
+        setPdfs(data);
+        // Group PDFs by CTF name
+        const grouped = data.reduce((acc, pdf) => {
+          const ctfName = pdf.ctfName || 'Unknown CTF';
+          if (!acc[ctfName]) {
+            acc[ctfName] = [];
+          }
+          acc[ctfName].push(pdf);
+          return acc;
+        }, {});
+        setGroupedPdfs(grouped);
+      } else {
+        throw new Error('Invalid data format received from server');
+      }
+    } catch (err) {
+      console.error('Error fetching PDFs:', err);
+      setError(err.message);
+      setPdfs([]);
+      setGroupedPdfs({});
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const deletePdf = async (id) => {
-    if (!window.confirm("Delete this writeup?")) return;
+    if (!window.confirm("Are you sure you want to delete this writeup?")) return;
 
     try {
       const token = localStorage.getItem("token");
@@ -74,6 +94,8 @@ export default function PdfList() {
         }
       });
 
+      const data = await res.json();
+
       if (res.ok) {
         setPdfs(prev => prev.filter(p => p._id !== id));
         // Also update grouped PDFs
@@ -86,22 +108,76 @@ export default function PdfList() {
           }
         }
         setGroupedPdfs(updatedGrouped);
-      } else if (res.status === 401) {
-        alert('You must be logged in to delete writeups.');
-        window.location.href = "/login";
-      } else if (res.status === 403) {
-        alert('You must be a member to delete writeups.');
+        alert("Writeup deleted successfully!");
       } else {
-        alert('Failed to delete writeup');
+        alert(data.error || 'Failed to delete writeup');
+        if (res.status === 401 || res.status === 403) {
+          window.location.href = "/login";
+        }
       }
     } catch (err) {
       console.error('Error deleting PDF:', err);
-      alert('Error deleting writeup');
+      alert('Error deleting writeup. Please try again.');
+    }
+  };
+
+  const toggleVisibility = async (id, currentVisibility) => {
+    try {
+      setToggling(prev => ({ ...prev, [id]: true }));
+      
+      const token = localStorage.getItem("token");
+      
+      if (!token) {
+        alert("You must be logged in to toggle visibility.");
+        window.location.href = "/login";
+        return;
+      }
+
+      const newVisibility = !currentVisibility;
+      
+      const res = await fetch(`http://localhost:5000/api/pdfs/${id}/visibility`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ visible: newVisibility })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        // Update local state
+        setPdfs(prev => prev.map(pdf => 
+          pdf._id === id ? { ...pdf, visible: newVisibility } : pdf
+        ));
+        
+        // Update grouped PDFs
+        const updatedGrouped = { ...groupedPdfs };
+        for (const ctfName in updatedGrouped) {
+          updatedGrouped[ctfName] = updatedGrouped[ctfName].map(pdf => 
+            pdf._id === id ? { ...pdf, visible: newVisibility } : pdf
+          );
+        }
+        setGroupedPdfs(updatedGrouped);
+        
+        alert(data.message);
+      } else {
+        alert(data.error || 'Failed to toggle visibility');
+      }
+    } catch (err) {
+      console.error('Error toggling visibility:', err);
+      alert('Error toggling visibility. Please try again.');
+    } finally {
+      setToggling(prev => ({ ...prev, [id]: false }));
     }
   };
 
   // Check if user can delete (member or admin)
   const canDelete = userRole === 'member' || userRole === 'admin';
+  
+  // Check if user can toggle visibility (member or admin)
+  const canToggleVisibility = userRole === 'member' || userRole === 'admin';
 
   if (loading) {
     return (
@@ -136,28 +212,52 @@ export default function PdfList() {
             <div className="ctf-writeups-grid">
               {ctfPdfs.map(pdf => (
                 <div key={pdf._id} className="pdf-card">
-                  <h4>{pdf.challengeName}</h4>
+                  <div className="pdf-card-header">
+                    <h4>{pdf.challengeName}</h4>
+                    {canToggleVisibility && (
+                      <div className="visibility-badge">
+                        <span className={`visibility-indicator ${pdf.visible ? 'visible' : 'hidden'}`}>
+                          {pdf.visible ? 'Visible' : 'Hidden'}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                   <p><strong>Challenge:</strong> {pdf.challengeName}</p>
                   <p><strong>CTF:</strong> {pdf.ctfName}</p>
 
-                  <a
-                    href={`http://localhost:5000/api/pdfs/view/${pdf.filename}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="view-writeup-btn"
-                  >
-                    View Writeup
-                  </a>
-
-                  {/* Only show delete button if user is member or admin */}
-                  {canDelete && (
-                    <button 
-                      onClick={() => deletePdf(pdf._id)} 
-                      className="delete-btn"
+                  <div className="pdf-card-actions">
+                    <a
+                      href={`http://localhost:5000/api/pdfs/view/${pdf.filename}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="view-writeup-btn"
                     >
-                      Delete
-                    </button>
-                  )}
+                      View Writeup
+                    </a>
+
+                    <div className="action-buttons">
+                      {/* Toggle visibility button for members/admins */}
+                      {canToggleVisibility && (
+                        <button 
+                          onClick={() => toggleVisibility(pdf._id, pdf.visible)}
+                          className={`visibility-toggle-btn ${pdf.visible ? 'hide-btn' : 'show-btn'}`}
+                          disabled={toggling[pdf._id]}
+                        >
+                          {toggling[pdf._id] ? '...' : (pdf.visible ? 'Hide' : 'Show')}
+                        </button>
+                      )}
+
+                      {/* Delete button for members/admins */}
+                      {canDelete && (
+                        <button 
+                          onClick={() => deletePdf(pdf._id)} 
+                          className="delete-btn"
+                        >
+                          Delete
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
