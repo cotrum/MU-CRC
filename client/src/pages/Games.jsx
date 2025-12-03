@@ -90,7 +90,7 @@ const GamesGallery = () => {
 
         <section className="section-box content-narrow">
           <p className="lead-text">
-            Take a break and check out our cybersecurity games developed by Dr. Callahan's security researchers!
+            Take a break and check out some of our cybersecurity games developed by Dr. Callahan's security researchers!
           </p>
         </section>
 
