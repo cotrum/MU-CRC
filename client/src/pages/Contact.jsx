@@ -109,7 +109,7 @@ const Contact = () => {
               <div className="info-item">
                 <div>
                   <h4>Location</h4>
-                  <p>Monmouth University<br />400 Cedar Avenue<br />West Long Branch, NJ 07764</p>
+                  <p>Thompson Hall, Monmouth University<br />400 Cedar Avenue<br />West Long Branch, NJ 07764</p>
                 </div>
               </div>
 
@@ -117,19 +117,12 @@ const Contact = () => {
                 <div>
                   <h4>Email</h4>
                   <p>
-                    <a href="mailto:cybersecurity@monmouth.edu">cybersecurity@monmouth.edu</a>
+                    <a href="mailto:cybersecurity@monmouth.edu">cybersecurity@monmouth.edu</a><br></br>
+                    <a href="mailto:briancallahan@monmouth.edu">briancallahan@monmouth.edu (Dr. Brian Callahan)</a>
                   </p>
                 </div>
               </div>
 
-              <div className="info-item">
-                <div>
-                  <h4>Phone</h4>
-                  <p>
-                    <a href="tel:+17325711234">(732) 571-1234</a>
-                  </p>
-                </div>
-              </div>
 
               <div className="info-item">
                 <div>

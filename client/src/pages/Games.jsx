@@ -86,7 +86,7 @@ const GamesGallery = () => {
     <>
 
       <div className="page-container">
-        <h1 className="page-title">Game Gallery</h1>
+        <h1 className="page-title">Games Gallery</h1>
 
         <section className="contact-intro">
           <p className="lead-text">
