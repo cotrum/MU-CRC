@@ -88,7 +88,7 @@ const GamesGallery = () => {
       <div className="page-container">
         <h1 className="page-title">Game Gallery</h1>
 
-        <section className="section-box content-narrow">
+        <section className="contact-intro">
           <p className="lead-text">
             Take a break and check out some of our cybersecurity games developed by Dr. Callahan's security researchers!
           </p>
