@@ -30,7 +30,6 @@ const Contact = () => {
   return (
     <>
       
-      
       <div className="page-container">
         <h1 className="page-title">Get In Touch</h1>
 
@@ -108,7 +107,6 @@ const Contact = () => {
             <h2>Contact Information</h2>
             <div className="info-card">
               <div className="info-item">
-                <span className="info-icon">📍</span>
                 <div>
                   <h4>Location</h4>
                   <p>Monmouth University<br />400 Cedar Avenue<br />West Long Branch, NJ 07764</p>
@@ -116,7 +114,6 @@ const Contact = () => {
               </div>
 
               <div className="info-item">
-                <span className="info-icon">📧</span>
                 <div>
                   <h4>Email</h4>
                   <p>
@@ -126,7 +123,6 @@ const Contact = () => {
               </div>
 
               <div className="info-item">
-                <span className="info-icon">📞</span>
                 <div>
                   <h4>Phone</h4>
                   <p>
@@ -136,7 +132,6 @@ const Contact = () => {
               </div>
 
               <div className="info-item">
-                <span className="info-icon">🕐</span>
                 <div>
                   <h4>Office Hours</h4>
                   <p>Monday - Friday<br />9:00 AM - 5:00 PM EST</p>
