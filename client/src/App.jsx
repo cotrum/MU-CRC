@@ -9,7 +9,7 @@ import Writeups from './pages/Writeups.jsx';
 import Login from './pages/Login.jsx'; 
 import Signup from './pages/Signup.jsx';
 import Header from './components/Header.jsx';
-import Games from './pages/Games.jsx';
+import GamesGallery from './pages/Games.jsx';
 
 function App() {
   
@@ -31,7 +31,7 @@ function App() {
           <Route path="/writeups" element={<Writeups />} />
           <Route path="/login" element={<Login onLogin={triggerUpdate} />} />
           <Route path="/register" element={<Signup onSignup={triggerUpdate} />} />
-          <Route path="/games" element={<Games />} />
+          <Route path="/games" element={ <GamesGallery /> } />
         </Routes>
       </div>
     </Router>
