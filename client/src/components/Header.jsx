@@ -28,7 +28,7 @@ export default function Header({ update }) {
                 <Link to="/about">ABOUT</Link>
                 <Link to="/events">EVENTS</Link>
                 <Link to="/sponsorship">SPONSORSHIP</Link>
-                <Link to="/writeups">WRITEUPS</Link>
+                <Link to="/writeups">CTF WRITEUPS</Link>
                 <Link to="/games">GAMES</Link>
                 <Link to="/contact">CONTACT</Link>
 

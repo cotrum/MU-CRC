@@ -16,18 +16,32 @@ const GamesGallery = () => {
       path: '/games/Cypher-Decryption-(game)/index.html'
     },
     {
-      id: 'memory-game',
-      title: 'Memory Match',
-      description: 'Find matching pairs and challenge your memory!',
-      thumbnail: '🧠',
-      path: '/games/memory-game/index.html'
+      id: 'DDos-defense',
+      title: 'DDoS Defense',
+      description: 'Defend your network against distributed denial of service attacks!',
+      thumbnail: '/images/ddos.png',
+      path: '/games/DDoS-Defense-(game)/index.html'
     },
     {
-      id: 'snake',
-      title: 'Snake Game',
-      description: 'Classic snake game - eat and grow!',
-      thumbnail: '🐍',
-      path: '/games/snake/index.html'
+      id: 'dial-spinner',
+      title: 'Dial Spinner',
+      description: 'Spin the dial to find the correct combination!',
+      thumbnail: '/images/dial-spinner.png',
+      path: '/games/Dial-Spinner-(game)/index.html'
+    },
+    {
+      id: 'keypad-simon-says',
+      title: 'Keypad Simon Says',
+      description: 'Remember the sequence and repeat it!',
+      thumbnail: '/images/simon-says.png',
+      path: '/games/Keypad-Simon-Says-(game)/index.html'
+    },
+    {
+      id: 'matching-game',
+      title: 'Matching Game',
+      description: 'Match the pairs to win!',
+      thumbnail: '/images/matching.png',
+      path: '/games/Matching-Game-(game)/index.html'
     }
   ];
 
@@ -70,20 +84,18 @@ const GamesGallery = () => {
 
   return (
     <>
-      <Header />
 
       <div className="page-container">
-        <h1 className="page-title">Games Gallery</h1>
+        <h1 className="page-title">Game Gallery</h1>
 
         <section className="section-box content-narrow">
           <p className="lead-text">
-            Check out some of our educational cybersecurity games developed by Dr. Callahan's security researchers!
+            Take a break and check out our cybersecurity games developed by Dr. Callahan's security researchers!
           </p>
         </section>
 
         <section className="sponsors-section">
-          <h2 className="section-title section-title--center">Available Games</h2>
-
+          
           <div className="sponsors-grid">
             {games.map((game) => (
               <div
@@ -94,11 +106,26 @@ const GamesGallery = () => {
                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
-                <div className="sponsor-placeholder">
-                  <div className="sponsor-initials" style={{ fontSize: '3rem' }}>
-                    {game.thumbnail}
+                {(game.thumbnail?.startsWith('/') || game.thumbnail?.startsWith('http')) ? (
+                  <div className="sponsor-placeholder" style={{ padding: '0', background: 'transparent', overflow: 'hidden' }}>
+                    <img 
+                      src={game.thumbnail} 
+                      alt={`${game.title} thumbnail`}
+                      style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover',
+                        display: 'block'
+                      }}
+                    />
                   </div>
-                </div>
+                ) : (
+                  <div className="sponsor-placeholder">
+                    <div className="sponsor-initials" style={{ fontSize: '3rem' }}>
+                      {game.thumbnail}
+                    </div>
+                  </div>
+                )}
 
                 <div className="sponsor-info">
                   <h3 className="sponsor-name">{game.title}</h3>
@@ -110,39 +137,6 @@ const GamesGallery = () => {
               </div>
             ))}
           </div>
-        </section>
-
-        <section className="section-box content-narrow" style={{ marginTop: '3rem' }}>
-          <h3 style={{ marginBottom: '1rem' }}>Project Structure</h3>
-          <pre style={{ 
-            background: 'var(--color-bg-secondary, #f5f5f5)', 
-            padding: '1rem', 
-            borderRadius: '8px',
-            overflow: 'auto',
-            fontSize: '0.9rem'
-          }}>
-{`/public
-  /games
-    /whack-a-mole
-      index.html
-      style.css
-      script.js
-    /memory-game
-      index.html
-      style.css
-      script.js
-    /snake
-      index.html
-      style.css
-      script.js`}
-          </pre>
-          <p style={{ marginTop: '1rem' }}>
-            Place your game folders in the <code style={{ 
-              background: 'var(--color-bg-secondary, #f5f5f5)', 
-              padding: '0.2rem 0.5rem', 
-              borderRadius: '4px' 
-            }}>public/games</code> directory. Each game should have its own folder with all its assets.
-          </p>
         </section>
       </div>
 
