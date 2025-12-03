@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PdfUpload from '../components/PdfUpload';
 import PdfList from '../components/PdfList';
 import Footer from "../components/Footer.jsx";
@@ -7,22 +7,37 @@ import "../styles/global.css";
 import "../styles/layout.css";
 
 const Writeups = () => {
+  const loggedIn = !!localStorage.getItem('token');
+  const userRole = localStorage.getItem('role');
+  const isMember = loggedIn && userRole === 'member';
+
   return (
     <>
-    <Header />
+  
     <div className="page-container">
 
-      <h1 className="page-title">Past CTF Competition Writeups</h1>
-
-      <h2 className="section-title">Upload a Writeup</h2>
-      <div className="section-box">
-        <PdfUpload />
-      </div>
-
-      <h2 className="section-title">Past CTF Writeups</h2>
+      <h1 className="page-title">CRC CTF Team Writeups</h1>
       <div className="section-box">
         <PdfList />
       </div>
+    
+      {isMember ?
+        ( <>
+          <h2 className="section-title">Upload a Writeup</h2>
+      <div className="section-box">
+
+        <PdfUpload />
+      
+      </div></>)
+        :
+        (<>
+          <h2 className="section-title">Upload a Writeup</h2>
+          <div className="section-box">
+            <p>You must be a member to upload writeups.</p>
+          </div>
+        </>)
+      }
+        
 
     </div>
     <Footer />
@@ -31,4 +46,3 @@ const Writeups = () => {
 };
 
 export default Writeups;
-

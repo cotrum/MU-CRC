@@ -1,0 +1,96 @@
+#timer {
+   font-size: 20px;
+   margin-top: 10px;
+   font-weight: bold;
+   color: black;
+}
+
+#gameFrame{
+   width: 200px;
+   height: 230px;
+   border: 3px solid black;
+   background: radial-gradient(circle, rgb(222, 222, 222) 0%, rgb(222, 222, 222) 50%,  rgb(144, 144, 144) 95%,  rgb(121, 121, 121) 100%);
+   border-radius: 5px;
+}
+
+.remaining-wins{
+   font-size: 20px;
+   position: relative;
+   left: 24px;
+   top: 10px;
+   margin-bottom: 10px;
+   font-weight: bold;
+   color: black;
+}
+
+.sprite-container {
+   position: relative;
+   width: 200px; /* Adjust as needed */
+   height: 200px; /* Adjust as needed */
+   border-radius: 50%; /* Make the container circular */
+   overflow: hidden; /* Ensure the overlay stays within the circular container */
+}
+
+.sprite {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   border-radius: 50%; /* Make the sprite circular */
+}
+
+#overlay {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   opacity: 0.5; /* Adjust opacity as needed */
+   box-shadow: 0 0 10px 8px #000;
+
+   border-radius: 50%; /* Make the overlay circular */
+   transform: scale(0.75); /* Scale down the overlay to 80% of its original size */
+}
+
+.triangle {
+   position: absolute;
+   top: 75px; /* Adjust as needed to position the triangle */
+   left: 110px;
+   transform: translateX(-50%);
+   width: 0;
+   height: 0;
+   border-left: 10px solid transparent;
+   border-right: 10px solid transparent;
+   border-top: 20px solid black; /* Adjust color as needed */
+   z-index: 1; /* Ensure the triangle is above other elements */
+}
+
+#stopButton{
+   position: absolute;
+   margin-left: 5px;
+   top: 69px;
+   left: 31px;
+   border-radius: 50%;
+   opacity: 0;
+   width: 150px;
+   height: 150px;
+   border: none;
+}
+
+#stopButton:hover{
+   cursor: pointer;
+}
+
+#startButton{
+   width: 200px;
+   height: 25px;
+   margin: 5px 0 0 2px;
+   border-radius: 10px;
+   border: 1px solid black;
+   font-size: 18px;
+   font-weight: bold;
+   font-family:'Times New Roman', Times, serif;
+   background-color: greenyellow;
+}
+
+#startButton:hover{
+   cursor: pointer;
+   background-color: green;
+}

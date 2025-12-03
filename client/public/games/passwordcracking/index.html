@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Cracking Challenges</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Password Cracking Challenges</h1>
+
+  <div class="challenge">
+    <h3>1. Rockyou Wordlist Cracking</h3>
+    <p>Some malicious users have tried to get into this PC through fake rpi.edu accounts. We’ve retrieved some of the hashes of their passwords and figured out that they come from the Rockyou word dump. Can you crack them?</p>
+    <input type="text" id="rockyouInput" placeholder="Enter hash here">
+    <button onclick="checkRockyouHash()">Check Hash</button>
+  </div>
+
+  <div class="challenge">
+    <h3>2. Windows Word Dumps</h3>
+    <p>We’ve retrieved some passwords used by a malicious APT trying to SSH into this PC, and they seem to come from old Windows XP password dumps. Can you crack them?</p>
+    <input type="text" id="windowsInput" placeholder="Enter hash here">
+    <button onclick="checkWindowsHash()">Check Hash</button>
+  </div>
+
+  <div class="challenge">
+    <h3>3. Brute Force</h3>
+    <p>We’ve retrieved hashes for some passwords used by old club members who forgot their password to their site. However, we’ve found that all of them started their passwords with RPICLUB followed by 4 numbers. See if you can figure out what they are.</p>
+    <input type="text" id="bruteForceInput" placeholder="Enter hash here">
+    <button onclick="checkBruteForceHash()">Check Hash</button>
+  </div>
+
+  <div id="output">Output will appear here...</div>
+
+  <script src="script.js"></script>
+  <script src="hashChecker.js"></script>
+</body>
+</html>

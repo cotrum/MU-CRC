@@ -57,7 +57,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      
       
       {/* Hero section is NOT inside page-container to allow full width */}
       <section className="hero-section">

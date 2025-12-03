@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Email Simulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #e8eaed;
+        }
+        .email-interface {
+            width: 600px;
+            margin: auto;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .email-header {
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+        }
+        .email-container {
+            padding: 20px;
+            background-color: #fff;
+        }
+        .email-footer {
+            background-color: #f2f2f2;
+            padding: 10px;
+            text-align: right;
+            border-top: 1px solid #ccc;
+        }
+        .clickable {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .attachment {
+            margin-top: 10px;
+            color: red;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-interface">
+        <div class="email-header">
+            <p><strong>Inbox</strong></p>
+            <p>12:34 PM</p>
+        </div>
+        <div class="email-container">
+            <p><strong>From:</strong> <span class="clickable" onclick="showFeedback('sender')">support@paypal-security.com</span></p>
+            <p><strong>Subject:</strong> Urgent: Your Account Has Been Suspended!</p>
+            <p>Dear Customer,</p>
+            <p>We have noticed suspicious activity on your account. Please verify your details immediately by clicking the link below:</p>
+            <p><a class="clickable" onclick="showFeedback('link')">Click here to verify your account</a></p>
+            <p>Failure to do so will result in permanent suspension of your account.</p>
+            <p><strong>Attachment:</strong> <span class="attachment" onclick="showFeedback('attachment')">Invoice_12345.exe</span></p>
+            <p>Best Regards,</p>
+            <p><span class="clickable" onclick="showFeedback('signature')">PayPal Security Team</span></p>
+        </div>
+        <div class="email-footer">
+            <button onclick="showFeedback('reply')">Reply</button>
+        </div>
+    </div>
+    
+    <p id="feedback" style="font-weight: bold; color: red; margin-top: 20px; text-align: center;"></p>
+
+    <script>
+        function showFeedback(section) {
+            let message = "";
+            switch (section) {
+                case 'sender':
+                    message = "Warning! The sender's email is suspicious. Official emails come from paypal.com, not paypal-security.com.";
+                    break;
+                case 'link':
+                    message = "Danger! Never click on unknown links in emails. This could lead to a fake website trying to steal your information.";
+                    break;
+                case 'signature':
+                    message = "Caution! The signature is generic and doesn't include real PayPal contact details.";
+                    break;
+                case 'attachment':
+                    message = "Warning! Suspicious attachment detected. Never open unexpected attachments, especially executable files (.exe).";
+                    break;
+                case 'reply':
+                    message = "Caution! Be careful when replying to suspicious emails. Attackers may try to extract more information from you.";
+                    break;
+                default:
+                    message = "This section is safe.";
+            }
+            document.getElementById("feedback").innerText = message;
+        }
+    </script>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="phish.html" style="font-size: 18px; color: black; text-decoration: underline;">Go Back</a>
+    </div>
+</body>
+</html>
