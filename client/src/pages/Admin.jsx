@@ -11,12 +11,21 @@ export default function Admin() {
 
   useEffect(() => {
     // Check if user is admin
-    const user = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const role = user.role || localStorage.getItem('role');
 
-    if (!token || !user || user.role !== 'admin') {
-      alert('Access denied. Admin privileges required.');
+    console.log('Admin page auth check:', { token, user, role });
+
+    if (!token) {
+      alert('Please log in first.');
       navigate('/login');
+      return;
+    }
+
+    if (role !== 'admin') {
+      alert('Access denied. Admin privileges required.');
+      navigate('/');
       return;
     }
 

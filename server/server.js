@@ -34,6 +34,7 @@ app.get('/api/test', (req, res) => {
 // Import and use routes
 import uploadRoutes from './routes/index.js'
 import authRoutes from './routes/auth.js'
+import adminRoutes from './routes/admin.js'
 
 app.use('/api', uploadRoutes)
 app.use('/api', authRoutes)

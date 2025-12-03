@@ -9,10 +9,20 @@ export default function PdfList() {
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-    // Check user role from localStorage
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      setUserRole(user.role);
+    // Get user role properly from localStorage
+    const getUserRole = () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("user") || '{}');
+        const role = user.role || localStorage.getItem("role");
+        return role;
+      } catch (err) {
+        return null;
+      }
+    };
+
+    const role = getUserRole();
+    if (role) {
+      setUserRole(role);
     }
 
     const fetchPdfs = async () => {
@@ -56,7 +66,7 @@ export default function PdfList() {
   }, []);
 
   const deletePdf = async (id) => {
-    if (!window.confirm("Delete this writeup?")) return;
+    if (!window.confirm("Are you sure you want to delete this writeup?")) return;
 
     try {
       const token = localStorage.getItem("token");
@@ -74,6 +84,8 @@ export default function PdfList() {
         }
       });
 
+      const data = await res.json();
+
       if (res.ok) {
         setPdfs(prev => prev.filter(p => p._id !== id));
         // Also update grouped PDFs
@@ -86,17 +98,16 @@ export default function PdfList() {
           }
         }
         setGroupedPdfs(updatedGrouped);
-      } else if (res.status === 401) {
-        alert('You must be logged in to delete writeups.');
-        window.location.href = "/login";
-      } else if (res.status === 403) {
-        alert('You must be a member to delete writeups.');
+        alert("Writeup deleted successfully!");
       } else {
-        alert('Failed to delete writeup');
+        alert(data.error || 'Failed to delete writeup');
+        if (res.status === 401 || res.status === 403) {
+          window.location.href = "/login";
+        }
       }
     } catch (err) {
       console.error('Error deleting PDF:', err);
-      alert('Error deleting writeup');
+      alert('Error deleting writeup. Please try again.');
     }
   };
 

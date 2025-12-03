@@ -3,7 +3,7 @@ import multer from 'multer';
 import mongoose from 'mongoose';
 import { GridFSBucket } from 'mongodb';
 import Pdf from '../models/Pdf.js';
-import { verifyToken, checkRole } from '../middleware/auth.js';
+import { getUserFromToken } from '../utils/authHelper.js'; // Add this import
 
 const router = express.Router();
 
@@ -103,8 +103,22 @@ router.get('/pdfs/view/:filename', async (req, res) => {
 });
 
 // ----------------- DELETE WRITEUP -----------------
-router.delete('/pdfs/:id', verifyToken, checkRole(['member', 'admin']), async (req, res) => {
+router.delete('/pdfs/:id', async (req, res) => {
   try {
+    // Check if user is authenticated and has proper role
+    const user = await getUserFromToken(req);
+    
+    if (!user) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
+
+    // Check if user has permission (member or admin)
+    if (user.role !== 'member' && user.role !== 'admin') {
+      return res.status(403).json({ 
+        error: 'Access denied. Member or admin privileges required.' 
+      });
+    }
+
     const pdf = await Pdf.findById(req.params.id);
     
     if (!pdf) {
