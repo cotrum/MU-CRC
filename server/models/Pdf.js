@@ -8,6 +8,7 @@ const PdfSchema = new mongoose.Schema({
   originalName: String,
   size: Number,
   uploadDate: { type: Date, default: Date.now },
+  visible: { type: Boolean, default: true },
 });
 
 export default mongoose.model('Pdf', PdfSchema);
