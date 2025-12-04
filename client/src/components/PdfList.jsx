@@ -10,24 +10,38 @@ export default function PdfList() {
   const [toggling, setToggling] = useState({});
 
   useEffect(() => {
-    // Get user role properly from localStorage
-    const getUserRole = () => {
-      try {
-        const user = JSON.parse(localStorage.getItem("user") || '{}');
-        const role = user.role || localStorage.getItem("role");
-        return role;
-      } catch (err) {
-        return null;
-      }
-    };
-
-    const role = getUserRole();
-    if (role) {
-      setUserRole(role);
+  // Get user role properly from localStorage
+  const getUserRole = () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user") || '{}');
+      const role = user.role || localStorage.getItem("role");
+      return role;
+    } catch (err) {
+      return null;
     }
+  };
 
-    fetchPdfs();
-  }, []);
+  const updateRole = () => {
+    const role = getUserRole();
+    setUserRole(role);
+  };
+
+  // Set initial role
+  updateRole();
+
+  // Listen for storage changes (including logout)
+  window.addEventListener('storage', updateRole);
+  
+  // Also listen for custom logout event if you dispatch one
+  window.addEventListener('logout', updateRole);
+
+  fetchPdfs();
+
+  return () => {
+    window.removeEventListener('storage', updateRole);
+    window.removeEventListener('logout', updateRole);
+  };
+}, []);
 
   const fetchPdfs = async () => {
     try {
